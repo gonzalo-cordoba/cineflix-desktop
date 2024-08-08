@@ -44,7 +44,7 @@ export function BannerCarrousel() {
                     <Image
                       src={image}
                       alt={`Image ${index + 1}`}
-                      layout="fill"
+                      fill
                       style={{
                         objectFit: "cover",
                         objectPosition: "center",

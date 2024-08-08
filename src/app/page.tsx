@@ -1,4 +1,5 @@
 import { BannerCarrousel } from "@/components/component/banner-carrousel";
+import { Cards } from "@/components/component/cards";
 import CardsMovies from "@/components/component/cards-movies";
 import { DropdownNavBar } from "@/components/component/dropdown-nav-bar";
 import { Button } from "@/components/ui/button";
@@ -62,8 +63,11 @@ export default async function Home() {
         >
           <DropdownNavBar />
         </div>
+        <main className="flex justify-center">
+          <Cards movies={movies} />
+        </main>
 
-        <CardsMovies movies={movies} />
+        {/* <CardsMovies movies={movies} /> */}
       </main>
     </>
   );
