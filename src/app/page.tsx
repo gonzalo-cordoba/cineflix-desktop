@@ -1,8 +1,23 @@
 import { BannerCarrousel } from "@/components/component/banner-carrousel";
+import CardsMovies from "@/components/component/cards-movies";
 import { DropdownNavBar } from "@/components/component/dropdown-nav-bar";
 import { Button } from "@/components/ui/button";
+import axiosInstance from "@/lib/axiosInstance";
+import { Movie, MoviesResponse } from "@/lib/types";
 
-export default function Home() {
+export default async function Home() {
+  let movies: Movie[] = [];
+  try {
+    const response = await axiosInstance.get<MoviesResponse>("/movie/popular");
+    movies = response.data.results;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+
+  if (!movies || movies.length === 0) {
+    return <div>No movies available.</div>;
+  }
+
   return (
     <>
       <main className="w-full">
@@ -47,6 +62,8 @@ export default function Home() {
         >
           <DropdownNavBar />
         </div>
+
+        <CardsMovies movies={movies} />
       </main>
     </>
   );
