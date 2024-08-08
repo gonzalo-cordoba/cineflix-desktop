@@ -22,16 +22,19 @@ export function DropdownNavBar() {
   return (
     <div className="w-full max-w-md mx-auto">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild style={{ border: "none" }}>
           <Button variant="outline" className="w-full justify-between">
             <div className="flex items-center">
               <LocationIcon className="w-4 h-4 mr-2" />
-              <span className="font-extrabold">{selectedCine}</span>
+              <span className="font-extrabold text-lg">{selectedCine}</span>
             </div>
             <ChevronDownIcon className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full p-4 space-y-2 bg-custom-purple">
+        <DropdownMenuContent
+          className="w-full p-4 space-y-2 bg-custom-purple"
+          style={{ border: "none" }}
+        >
           <DropdownMenuGroup>
             <DropdownMenuItem onSelect={() => handleSelect("Cineflix Abasto")}>
               <div

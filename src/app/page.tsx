@@ -1,4 +1,4 @@
-import { Carrousel } from "@/components/component/carrousel";
+import { BannerCarrousel } from "@/components/component/banner-carrousel";
 import { DropdownNavBar } from "@/components/component/dropdown-nav-bar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <Carrousel />
+        <BannerCarrousel />
       </main>
 
       <main className="flex flex-col items-center mt-24 space-y-4">
