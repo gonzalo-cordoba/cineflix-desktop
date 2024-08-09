@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CineFlix
 
-## Getting Started
+## Descripción del Proyecto
 
-First, run the development server:
+CineFlix es una plataforma web diseñada para replicar la experiencia de un cine en línea. Los usuarios pueden comprar entradas, elegir sus asientos, y explorar un extenso catálogo de películas con trailers incluidos. Al finalizar la compra, recibirán una factura detallada, creando una experiencia completa y realista, como si estuvieran en un cine, pero desde la comodidad de sus hogares.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologías Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para el desarrollo de CineFlix, se emplearán las siguientes tecnologías:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **React** con **Next.js** para la estructura y el rendimiento del sitio web.
+- **TypeScript** para asegurar la tipificación y escalabilidad del código.
+- **Shadcn/ui** y **Tailwind CSS** para un diseño moderno y estilizado.
+- **Firebase** (potencialmente) para la gestión de la base de datos y autenticación.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Objetivos y Características Clave
 
-## Learn More
+El objetivo principal de CineFlix es ofrecer una experiencia inmersiva de cine en línea a través de una interfaz intuitiva y atractiva. El proyecto se desarrollará inicialmente como una aplicación web, con planes de expandirse a una aplicación móvil para Android utilizando **React Native**.
 
-To learn more about Next.js, take a look at the following resources:
+- **API de películas:** Se integrará la API de [The Movie Database](https://developer.themoviedb.org/docs/getting-started) para obtener información de las películas.
+- **Consumo de APIs:** Se utilizará **Axios** para manejar las solicitudes a las APIs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuración del Proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Clonar el Repositorio
 
-## Deploy on Vercel
+Para clonar el repositorio de CineFlix, sigue estos pasos:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Abre tu terminal y navega a la carpeta donde deseas clonar el proyecto.
+2. Ejecuta el siguiente comando para clonar el repositorio:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   git clone https://github.com/gonzalo-cordoba/cineflix-desktop
+   ```
