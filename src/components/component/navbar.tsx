@@ -45,7 +45,7 @@ export function Navbar() {
           <div className="hidden md:flex md:items-center md:gap-6">
             <Link
               href="#"
-              className="text-lg font-extrabold hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors text-white"
+              className="text-md font-extrabold hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors text-white"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
             >
@@ -53,7 +53,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              className="text-lg font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
+              className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
             >
@@ -61,7 +61,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              className="text-lg font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
+              className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
             >
@@ -99,7 +99,7 @@ export function Navbar() {
             className="flex items-center gap-6 justify-end bg-white bg-opacity-80 rounded-lg px-3 py-2 hover:bg-[#7b4dc4] hover:text-white"
             aria-expanded={isCommandOpen}
           >
-            <MagnifyingGlassIcon className="h-8 w-8 text-black" />
+            <MagnifyingGlassIcon className="h-7 w-7 text-black" />
           </button>
           {isCommandOpen && (
             <Command className="absolute top-full right-0 mt-2 w-80 rounded-lg border shadow-md bg-[#9667E0] text-white z-50">

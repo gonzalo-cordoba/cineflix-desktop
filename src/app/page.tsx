@@ -1,7 +1,7 @@
 import { BannerCarrousel } from "@/components/component/banner-carrousel";
 import { Cards } from "@/components/component/cards";
-import CardsMovies from "@/components/component/cards-movies";
 import { DropdownNavBar } from "@/components/component/dropdown-nav-bar";
+import Promotions from "@/components/component/promotions";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/lib/axiosInstance";
 import { Movie, MoviesResponse } from "@/lib/types";
@@ -26,7 +26,7 @@ export default async function Home() {
       </main>
 
       <main className="flex flex-col items-center mt-8 space-y-6 px-4 md:px-8 lg:px-16">
-        <h1 className="font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center">
+        <h1 className="font-extrabold text-2xl sm:text-small md:text-4xl lg:text-4xl text-center">
           Descubre la cartelera en tu cine
         </h1>
 
@@ -66,8 +66,10 @@ export default async function Home() {
         <main className="flex justify-center">
           <Cards movies={movies} />
         </main>
+      </main>
 
-        {/* <CardsMovies movies={movies} /> */}
+      <main className="mt-20">
+        <Promotions />
       </main>
     </>
   );

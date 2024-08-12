@@ -26,7 +26,7 @@ export function Cards({ movies }: HomeProps) {
 
   return (
     <Card
-      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
       style={{ border: "none", boxShadow: "none" }}
     >
       {movies.map((movie) => (
@@ -53,11 +53,11 @@ export function Cards({ movies }: HomeProps) {
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              width={500}
-              height={750}
+              width={150}
+              height={250}
               className="w-full h-128 object-contain"
               style={{
-                width: "100%",
+                width: "auto",
                 height: "auto",
                 objectFit: "contain",
                 boxShadow: "inherit",
