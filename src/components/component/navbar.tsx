@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { DropdownNavBar } from "./dropdown-nav-bar";
@@ -24,13 +23,44 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { Button } from "../ui/button";
+import DropdownWithTabs from "../DropdownWithTabs";
 
 export function Navbar() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [dropdownContent, setDropdownContent] = useState<React.ReactNode>(null);
+  const [isDropdownHovered, setIsDropdownHovered] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleCommand = () => {
     setIsCommandOpen(!isCommandOpen);
   };
+
+  const handleMouseEnter = (content: React.ReactNode) => {
+    setDropdownContent(content);
+  };
+
+  const handleMouseLeaveDropdown = () => {
+    if (!isDropdownHovered) {
+      setDropdownContent(null);
+    }
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setDropdownContent(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-[#9667E0] px-4 py-3 md:px-6 md:py-4">
@@ -45,6 +75,7 @@ export function Navbar() {
           <div className="hidden md:flex md:items-center md:gap-6">
             <Link
               href="#"
+              onMouseEnter={() => handleMouseEnter(<DropdownWithTabs />)}
               className="text-md font-extrabold hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors text-white"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -53,6 +84,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
+              onMouseEnter={() => handleMouseEnter(<CandyDropdown />)}
               className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -61,6 +93,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
+              onMouseEnter={() => handleMouseEnter(<PromosDropdown />)}
               className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -146,8 +179,29 @@ export function Navbar() {
           )}
         </div>
       </div>
+      {dropdownContent && (
+        <div
+          ref={dropdownRef}
+          onMouseEnter={() => setIsDropdownHovered(true)}
+          onMouseLeave={() => {
+            setIsDropdownHovered(false);
+            handleMouseLeaveDropdown();
+          }}
+          className="absolute left-0 right-0 mt-2 p-4 bg-white shadow-md z-50"
+        >
+          {dropdownContent}
+        </div>
+      )}
     </header>
   );
+}
+
+function CandyDropdown() {
+  return <div>Menus disponibles...</div>;
+}
+
+function PromosDropdown() {
+  return <div>Promociones disponibles...</div>;
 }
 
 function MenuIcon(props: any) {

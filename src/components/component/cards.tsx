@@ -6,8 +6,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Movie, MoviesResponse } from "@/lib/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 
 interface HomeProps {
   movies: Movie[];
@@ -15,6 +16,16 @@ interface HomeProps {
 
 export function Cards({ movies }: HomeProps) {
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   const handleMouseEnter = (id: number) => {
     setHoveredImage(id);
@@ -22,6 +33,10 @@ export function Cards({ movies }: HomeProps) {
 
   const handleMouseLeave = () => {
     setHoveredImage(null);
+  };
+
+  const handleViewDetail = (id: number) => {
+    router.push(`/movies/${id}`);
   };
 
   return (
