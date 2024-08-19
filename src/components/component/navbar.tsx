@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/command";
 import { Button } from "../ui/button";
 import DropdownWithTabs from "../DropdownWithTabs";
+import CandyDropdown from "../CandyWithTabs";
+import PromosWithTabs from "../PromosWithTabs";
 
 export function Navbar() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
@@ -93,7 +95,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              onMouseEnter={() => handleMouseEnter(<PromosDropdown />)}
+              onMouseEnter={() => handleMouseEnter(<PromosWithTabs />)}
               className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -194,14 +196,6 @@ export function Navbar() {
       )}
     </header>
   );
-}
-
-function CandyDropdown() {
-  return <div>Menus disponibles...</div>;
-}
-
-function PromosDropdown() {
-  return <div>Promociones disponibles...</div>;
 }
 
 function MenuIcon(props: any) {
