@@ -6,38 +6,39 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Movie, MoviesResponse } from "@/lib/types";
-import { useEffect, useState } from "react";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { useMovieCard } from "@/hooks/useMovieCard";
 
 interface HomeProps {
   movies: Movie[];
 }
 
 export function Cards({ movies }: HomeProps) {
-  const [hoveredImage, setHoveredImage] = useState<number | null>(null);
-  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { hoveredImage, isClient, handleMouseEnter, handleMouseLeave } =
+    useMovieCard();
+
+  const handleViewDetail = (id: number) => {
+    if (isClient) {
+      router.push(`/movie/${id}`);
+    } else {
+      console.log("Router is not mounted yet");
+    }
+  };
+
+  const navigateToMovieDetail = (movieId: string) => {
+    if (isClient) {
+      router.push(`/movies/${movieId}`);
+    } else {
+      console.error("Router is not mount yet");
+    }
+  };
 
   if (!isClient) {
     return null;
   }
-
-  const handleMouseEnter = (id: number) => {
-    setHoveredImage(id);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredImage(null);
-  };
-
-  const handleViewDetail = (id: number) => {
-    router.push(`/movies/${id}`);
-  };
 
   return (
     <Card
@@ -90,6 +91,7 @@ export function Cards({ movies }: HomeProps) {
                 boxShadow: "inherit",
                 borderRadius: "10px",
               }}
+              onClick={() => handleViewDetail(movie.id)}
             >
               Comprar entradas
             </Button>
@@ -105,6 +107,7 @@ export function Cards({ movies }: HomeProps) {
                 border: "none",
                 borderRadius: "10px",
               }}
+              onClick={() => handleViewDetail(movie.id)}
             >
               <InfoCircledIcon className="pr-1 w-6 h-6" />
               Ver detalle
@@ -118,7 +121,9 @@ export function Cards({ movies }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   try {
-    const response = await axiosInstance.get<MoviesResponse>("/movie/popular");
+    const response = await axiosInstance.get<MoviesResponse>(
+      "movie/now_playing"
+    );
     const movies = response.data.results;
 
     return {
