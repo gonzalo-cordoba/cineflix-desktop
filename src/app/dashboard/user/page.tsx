@@ -5,7 +5,7 @@ import logocnblack from "../../../../public/logocnblack.png";
 export default function User() {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
-      {/* Contenedor desktop */}
+      {/* Contenedor de */}
       <div
         style={{
           width: "800px",
@@ -45,7 +45,7 @@ export default function User() {
         </div>
 
         <main className="mb-6 lg:mb-14">
-          <h2 className="font-bold text-2xl lg:text-3xl mb-4">
+          <h2 className="flex justify-center text-center font-bold text-xl lg:text-4xl mb-4">
             ¿Ya tienes cuenta?
           </h2>
           <button
@@ -61,7 +61,7 @@ export default function User() {
         </main>
 
         <main>
-          <h2 className="font-bold text-2xl lg:text-3xl mb-4">
+          <h2 className="flex justify-center text-center font-bold text-xl lg:text-4xl mb-4">
             Si nunca te registraste
           </h2>
           <button
