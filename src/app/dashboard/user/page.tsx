@@ -45,7 +45,7 @@ export default function User() {
         </div>
 
         <main className="mb-6 lg:mb-14">
-          <h2 className="flex justify-center text-center font-bold text-xl lg:text-4xl mb-4">
+          <h2 className="flex justify-center text-center font-bold text-xl lg:text-5xl mb-4">
             ¿Ya tienes cuenta?
           </h2>
           <button
@@ -61,7 +61,7 @@ export default function User() {
         </main>
 
         <main>
-          <h2 className="flex justify-center text-center font-bold text-xl lg:text-4xl mb-4">
+          <h2 className="flex justify-center text-center font-bold text-xl lg:text-5xl mb-4">
             Si nunca te registraste
           </h2>
           <button
