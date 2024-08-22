@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logocn from "../../../../public/logo.png";
 import logocnblack from "../../../../public/logocnblack.png";
+import Link from "next/link";
 
 export default function User() {
   return (
@@ -48,33 +49,38 @@ export default function User() {
           <h2 className="flex justify-center text-center font-bold text-xl lg:text-5xl mb-4">
             ¿Ya tienes cuenta?
           </h2>
-          <button
-            style={{
-              backgroundColor: "#D4BBFC",
-              color: "white",
-              borderRadius: "10px",
-            }}
-            className="mt-2 px-6 py-3 rounded w-64 lg:w-full"
-          >
-            Iniciar sesión
-          </button>
+
+          <Link href="/dashboard/login">
+            <button
+              style={{
+                backgroundColor: "#D4BBFC",
+                color: "white",
+                borderRadius: "10px",
+              }}
+              className="mt-2 px-6 py-3 rounded w-64 lg:w-full"
+            >
+              Iniciar sesión
+            </button>
+          </Link>
         </main>
 
         <main>
           <h2 className="flex justify-center text-center font-bold text-xl lg:text-5xl mb-4">
             Si nunca te registraste
           </h2>
-          <button
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              borderRadius: "10px",
-              border: "1px solid #ccc",
-            }}
-            className="mt-2 px-6 py-3 rounded w-64 lg:w-full"
-          >
-            Crea una cuenta
-          </button>
+          <Link href="/dashboard/register">
+            <button
+              style={{
+                backgroundColor: "white",
+                color: "black",
+                borderRadius: "10px",
+                border: "1px solid #ccc",
+              }}
+              className="mt-2 px-6 py-3 rounded w-64 lg:w-full"
+            >
+              Crea una cuenta
+            </button>
+          </Link>
         </main>
       </div>
     </div>

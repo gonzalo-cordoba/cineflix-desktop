@@ -110,10 +110,10 @@ export default function Login() {
 
         <button
           style={{
-            backgroundColor: "#4285F4",
-            color: "white",
-            border: "none",
+            backgroundColor: "white",
+            color: "black",
             borderRadius: "10px",
+            border: "1px solid #ccc",
           }}
           className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-4 px-4 flex items-center justify-center gap-2 rounded transition-colors duration-300 hover:bg-blue-700"
           type="button"
@@ -147,6 +147,13 @@ export default function Login() {
           />
           <span>Continuar con Facebook</span>
         </button>
+
+        <p className="mt-5">
+          ¿No tienes cuenta aún?{" "}
+          <Link href="/dashboard/register" style={{ color: "#9667E0" }}>
+            Registrate
+          </Link>
+        </p>
       </div>
     </div>
   );
