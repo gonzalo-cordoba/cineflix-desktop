@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import logocn from "../../../../public/logo.png";
 import Link from "next/link";
@@ -10,8 +12,14 @@ import facebookIcon from "../../../../public/icono-facebook.svg";
 import nivelPromo from "../../../../public/nivelpromo.png";
 import puntosPromo from "../../../../public/puntospromo.png";
 import ticketsPromo from "../../../../public/ticketspromo.png";
+import { signIn } from "next-auth/react";
+import { ArrowLeft } from "lucide-react";
 
 export default function Register() {
+  const handleSignIn = async (provider: string) => {
+    await signIn(provider, { callbackUrl: "/user" });
+  };
+
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
       {/* Contenedor de */}
@@ -95,6 +103,19 @@ export default function Register() {
         </main>
       </div>
 
+      <Link href="/">
+        <button
+          className="flex items-center font-bold px-4 py-2 ml-5"
+          style={{
+            backgroundColor: "#D4BBFC",
+            color: "white",
+            borderRadius: "15px",
+          }}
+        >
+          <ArrowLeft />
+        </button>
+      </Link>
+
       {/* Contenedor Mobile */}
       <div className="flex flex-col justify-center items-center w-full lg:w-[600px] mt-10 lg:mt-40 xl:w-[800px] px-4 lg:px-0 mx-auto">
         <div className="lg:hidden flex flex-col items-center mb-6">
@@ -141,6 +162,7 @@ export default function Register() {
         </button>
 
         <button
+          onClick={() => handleSignIn("google")}
           style={{
             backgroundColor: "white",
             color: "black",

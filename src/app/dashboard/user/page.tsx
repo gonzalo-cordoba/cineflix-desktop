@@ -2,6 +2,7 @@ import Image from "next/image";
 import logocn from "../../../../public/logo.png";
 import logocnblack from "../../../../public/logocnblack.png";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function User() {
   return (
@@ -33,6 +34,19 @@ export default function User() {
           Bienvenido a Cineflix
         </h1>
       </div>
+
+      <Link href="/">
+        <button
+          className="flex items-center font-bold px-4 py-2 ml-5"
+          style={{
+            backgroundColor: "#D4BBFC",
+            color: "white",
+            borderRadius: "15px",
+          }}
+        >
+          <ArrowLeft />
+        </button>
+      </Link>
 
       {/* Contenedor Mobile */}
       <div className="flex flex-col justify-center items-center w-full lg:w-[600px] mt-10 lg:mt-40 xl:w-[800px] px-4 lg:px-0 mx-auto">

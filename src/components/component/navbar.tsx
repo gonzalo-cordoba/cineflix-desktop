@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { DropdownNavBar } from "./dropdown-nav-bar";
 import {
@@ -12,6 +13,7 @@ import {
   Settings,
   Smile,
   User,
+  User2Icon,
 } from "lucide-react";
 import {
   Command,
@@ -27,6 +29,7 @@ import { Button } from "../ui/button";
 import DropdownWithTabs from "../DropdownWithTabs";
 import CandyDropdown from "../CandyWithTabs";
 import PromosWithTabs from "../PromosWithTabs";
+import defaultImage from "../../../public/logo.png";
 
 export function Navbar() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
@@ -63,6 +66,13 @@ export function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const { data: session } = useSession();
+
+  const userImage =
+    typeof session?.user?.image === "string"
+      ? session.user.image
+      : defaultImage;
 
   return (
     <header className="bg-[#9667E0] px-4 py-3 md:px-6 md:py-4">
@@ -105,7 +115,7 @@ export function Navbar() {
           </div>
         </div>
         <Link
-          href="#"
+          href="/"
           className="absolute left-1/2 transform -translate-x-1/2 text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors flex items-center justify-center"
           prefetch={false}
         >
@@ -178,6 +188,38 @@ export function Navbar() {
                 </CommandGroup>
               </CommandList>
             </Command>
+          )}
+
+          {session?.user ? (
+            <div className="flex items-center space-x-4">
+              <img
+                src={session.user.image}
+                alt="Imagen usuario"
+                className="w-10 h-10 rounded-full cursor-pointer"
+                style={{ borderRadius: "50%" }}
+              />
+              <button
+                onClick={async () => {
+                  await signOut({
+                    callbackUrl: "/",
+                  });
+                }}
+                className="text-md font-extrabold"
+                style={{
+                  color: "white",
+                }}
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="dashboard/user"
+              className="text-md font-extrabold"
+              style={{ color: "white" }}
+            >
+              <User2Icon />
+            </Link>
           )}
         </div>
       </div>
