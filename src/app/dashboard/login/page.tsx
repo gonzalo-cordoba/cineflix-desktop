@@ -18,6 +18,7 @@ export default function Login() {
           borderRadius: "15px",
           backgroundColor: "#9667E0",
           border: "1px solid #ccc",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
         }}
         className="relative flex-col items-center justify-center hidden lg:flex"
       >

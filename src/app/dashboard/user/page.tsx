@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function User() {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
-      {/* Contenedor de */}
+      {/* Contenedor de Desltop */}
       <div
         style={{
           width: "800px",
@@ -14,6 +14,7 @@ export default function User() {
           borderRadius: "15px",
           backgroundColor: "#9667E0",
           border: "1px solid #ccc",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
         }}
         className="relative flex-col items-center justify-center hidden lg:flex"
       >
