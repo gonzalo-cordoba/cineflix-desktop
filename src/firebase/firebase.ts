@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBWaoNZDJkZTgICLA4ZPteBqmp5L9PkYno",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "cineflix-7bb6c.firebaseapp.com",
   projectId: "cineflix-7bb6c",
   storageBucket: "cineflix-7bb6c.appspot.com",
