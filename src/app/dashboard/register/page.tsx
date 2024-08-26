@@ -133,7 +133,7 @@ export default function Register() {
             Crea una cuenta
           </h2>
           <p className="flex justify-center text-center font-light ">
-            Ingresa tu correo electronico para crear una cuenta
+            Ingresa tu nombre
           </p>
           <Input
             style={{
@@ -142,9 +142,43 @@ export default function Register() {
               border: "none",
               borderRadius: "10px",
             }}
-            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+            type="email"
+            placeholder="Nombre"
+          />
+        </main>
+
+        <main className="mb-6 lg:mb-0">
+          <p className="flex justify-center text-center font-light mt-5 ">
+            Ingresa tu correo electronico
+          </p>
+          <Input
+            style={{
+              backgroundColor: "#EBD9FC",
+              color: "black",
+              border: "none",
+              borderRadius: "10px",
+            }}
+            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
             type="email"
             placeholder="Email"
+          />
+        </main>
+
+        <main className="mb-6 lg:mb-0">
+          <p className="flex justify-center text-center font-light mt-5 ">
+            Ingresa una contraseña
+          </p>
+          <Input
+            style={{
+              backgroundColor: "#EBD9FC",
+              color: "black",
+              border: "none",
+              borderRadius: "10px",
+            }}
+            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+            type="password"
+            placeholder="Contraseña"
           />
         </main>
 
@@ -158,7 +192,7 @@ export default function Register() {
           className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
           type="submit"
         >
-          Continuar
+          Registrarme
         </button>
 
         <button
