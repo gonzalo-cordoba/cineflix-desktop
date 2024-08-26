@@ -8,21 +8,34 @@ interface RegisterData {
   displayName?: string;
 }
 
-interface useFirebaseRegister {
-  registerUser: (data: RegisterData) => Promise<void>;
+interface UseFirebaseRegister {
+  registerUser: (data: RegisterData) => Promise<RegisterUserResult>;
   error: string | null;
   loading: boolean;
+  showAlert: {
+    type: "success" | "error";
+    message: string;
+  } | null;
 }
 
-export const useFirebaseRegister = (): useFirebaseRegister => {
+interface RegisterUserResult {
+  success: boolean;
+  message?: string;
+}
+
+export const useFirebaseRegister = (): UseFirebaseRegister => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const registerUser = async ({
     email,
     password,
     displayName,
-  }: RegisterData) => {
+  }: RegisterData): Promise<RegisterUserResult> => {
     setLoading(true);
     setError(null);
     try {
@@ -31,15 +44,21 @@ export const useFirebaseRegister = (): useFirebaseRegister => {
         email,
         password
       );
+
       if (displayName) {
         await updateProfile(userCredential.user, { displayName });
       }
+
       setLoading(false);
+      setShowAlert({ type: "success", message: "Registro exitoso" });
+      return { success: true, message: "Registro exitoso" };
     } catch (err: any) {
       setError(err.message);
       setLoading(false);
+      setShowAlert({ type: "error", message: "Error al registrar el usuario" });
+      return { success: false, message: err.message };
     }
   };
 
-  return { registerUser, error, loading };
+  return { registerUser, error, loading, showAlert };
 };

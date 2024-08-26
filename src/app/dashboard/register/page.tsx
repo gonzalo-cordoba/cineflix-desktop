@@ -4,6 +4,8 @@ import Image from "next/image";
 import logocn from "../../../../public/logo.png";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Check, X } from "lucide-react";
 
 import logocnblack from "../../../../public/logocnblack.png";
 import googleIcon from "../../../../public/icono-google.svg";
@@ -14,15 +16,44 @@ import puntosPromo from "../../../../public/puntospromo.png";
 import ticketsPromo from "../../../../public/ticketspromo.png";
 import { signIn } from "next-auth/react";
 import { ArrowLeft } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { registerSchema } from "@/validation/registerSchema";
+import { useFirebaseRegister } from "@/hooks/useFirebaseRegister";
+
+type FormValues = z.infer<typeof registerSchema>;
 
 export default function Register() {
+  const { registerUser, error, loading, showAlert } = useFirebaseRegister();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    const result = await registerUser({
+      email: data.email,
+      password: data.password,
+      displayName: data.name,
+    });
+
+    if (result?.success) {
+      reset();
+    }
+  };
+
   const handleSignIn = async (provider: string) => {
     await signIn(provider, { callbackUrl: "/user" });
   };
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
-      {/* Contenedor de */}
       <div
         style={{
           width: "800px",
@@ -116,7 +147,6 @@ export default function Register() {
         </button>
       </Link>
 
-      {/* Contenedor Mobile */}
       <div className="flex flex-col justify-center items-center w-full lg:w-[600px] mt-10 lg:mt-40 xl:w-[800px] px-4 lg:px-0 mx-auto">
         <div className="lg:hidden flex flex-col items-center mb-6">
           <Image
@@ -128,72 +158,125 @@ export default function Register() {
           />
         </div>
 
-        <main className="mb-6 lg:mb-0">
-          <h2 className="flex justify-center text-center font-bold text-xl lg:text-3xl mb-4">
-            Crea una cuenta
-          </h2>
-          <p className="flex justify-center text-center font-light ">
-            Ingresa tu nombre
-          </p>
-          <Input
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <main className="mb-6 lg:mb-0">
+            <h2 className="flex justify-center text-center font-bold text-xl lg:text-3xl mb-4">
+              Crea una cuenta
+            </h2>
+            <p className="flex justify-center text-center font-light mt-5 ">
+              Ingresa tu nombre
+            </p>
+            <Input
+              {...register("name")}
+              style={{
+                backgroundColor: "#EBD9FC",
+                color: "black",
+                border: "none",
+                borderRadius: "10px",
+              }}
+              className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+              type="text"
+              placeholder="Nombre"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            )}
+          </main>
+
+          <main className="mb-6 lg:mb-0">
+            <p className="flex justify-center text-center font-light mt-5 ">
+              Ingresa tu correo electrónico
+            </p>
+            <Input
+              {...register("email")}
+              style={{
+                backgroundColor: "#EBD9FC",
+                color: "black",
+                border: "none",
+                borderRadius: "10px",
+              }}
+              className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+              type="email"
+              placeholder="Email"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </main>
+
+          <main className="mb-6 lg:mb-0">
+            <p className="flex justify-center text-center font-light mt-5 ">
+              Ingresa una contraseña
+            </p>
+            <Input
+              {...register("password")}
+              style={{
+                backgroundColor: "#EBD9FC",
+                color: "black",
+                border: "none",
+                borderRadius: "10px",
+              }}
+              className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+              type="password"
+              placeholder="Contraseña"
+            />
+            {errors.password && (
+              <p style={{ color: "red" }} className="text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </main>
+
+          <button
             style={{
-              backgroundColor: "#EBD9FC",
-              color: "black",
+              backgroundColor: "#9667E0",
+              color: "white",
               border: "none",
               borderRadius: "10px",
             }}
-            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
-            type="email"
-            placeholder="Nombre"
-          />
-        </main>
+            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Registrando..." : "Registrarme"}
+          </button>
 
-        <main className="mb-6 lg:mb-0">
-          <p className="flex justify-center text-center font-light mt-5 ">
-            Ingresa tu correo electronico
-          </p>
-          <Input
-            style={{
-              backgroundColor: "#EBD9FC",
-              color: "black",
-              border: "none",
-              borderRadius: "10px",
-            }}
-            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
-            type="email"
-            placeholder="Email"
-          />
-        </main>
+          {showAlert && showAlert.type === "success" && (
+            <Alert
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                borderRadius: "15px",
+              }}
+              className="mt-5"
+            >
+              <Check className="h-4 w-4" />
+              <AlertTitle style={{ color: "white" }}>¡Éxito!</AlertTitle>
+              <AlertDescription style={{ color: "white" }}>
+                Usted ha sido registrado correctamente.
+              </AlertDescription>
+            </Alert>
+          )}
 
-        <main className="mb-6 lg:mb-0">
-          <p className="flex justify-center text-center font-light mt-5 ">
-            Ingresa una contraseña
-          </p>
-          <Input
-            style={{
-              backgroundColor: "#EBD9FC",
-              color: "black",
-              border: "none",
-              borderRadius: "10px",
-            }}
-            className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
-            type="password"
-            placeholder="Contraseña"
-          />
-        </main>
-
-        <button
-          style={{
-            backgroundColor: "#9667E0",
-            color: "white",
-            border: "none",
-            borderRadius: "10px",
-          }}
-          className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
-          type="submit"
-        >
-          Registrarme
-        </button>
+          {showAlert && showAlert.type === "error" && (
+            <Alert
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                borderRadius: "15px",
+              }}
+              className="mt-5"
+            >
+              <X className="h-4 w-4" />
+              <AlertTitle style={{ color: "white" }}>Error</AlertTitle>
+              <AlertDescription style={{ color: "white" }}>
+                Ha ocurrido un error, vuelva a intentarlo mas tarde.
+              </AlertDescription>
+            </Alert>
+          )}
+        </form>
 
         <button
           onClick={() => handleSignIn("google")}
