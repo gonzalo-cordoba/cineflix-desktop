@@ -1,19 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import logocn from "../../../../public/logo.png";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Check, X } from "lucide-react";
-
-import logocnblack from "../../../../public/logocnblack.png";
-import googleIcon from "../../../../public/icono-google.svg";
-import facebookIcon from "../../../../public/icono-facebook.svg";
-
-import nivelPromo from "../../../../public/nivelpromo.png";
-import puntosPromo from "../../../../public/puntospromo.png";
-import ticketsPromo from "../../../../public/ticketspromo.png";
 import { signIn } from "next-auth/react";
 import { ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +12,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { registerSchema } from "@/validation/registerSchema";
 import { useFirebaseRegister } from "@/hooks/useFirebaseRegister";
+
+import logocn from "../../../../public/logo.png";
+import logocnblack from "../../../../public/logocnblack.png";
+import googleIcon from "../../../../public/icono-google.svg";
+import facebookIcon from "../../../../public/icono-facebook.svg";
+import nivelPromo from "../../../../public/nivelpromo.png";
+import puntosPromo from "../../../../public/puntospromo.png";
+import ticketsPromo from "../../../../public/ticketspromo.png";
+import { useState } from "react";
 
 type FormValues = z.infer<typeof registerSchema>;
 
@@ -51,6 +51,8 @@ export default function Register() {
   const handleSignIn = async (provider: string) => {
     await signIn(provider, { callbackUrl: "/user" });
   };
+
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
@@ -179,7 +181,9 @@ export default function Register() {
               placeholder="Nombre"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+              <p style={{ color: "red" }} className=" text-sm mt-1">
+                {errors.name.message}
+              </p>
             )}
           </main>
 
@@ -200,7 +204,7 @@ export default function Register() {
               placeholder="Email"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
+              <p style={{ color: "red" }} className="text-sm mt-1">
                 {errors.email.message}
               </p>
             )}
@@ -255,7 +259,16 @@ export default function Register() {
               <Check className="h-4 w-4" />
               <AlertTitle style={{ color: "white" }}>¡Éxito!</AlertTitle>
               <AlertDescription style={{ color: "white" }}>
-                Usted ha sido registrado correctamente.
+                Usted ha sido registrado correctamente.{" "}
+                <Link
+                  className="font-extrabold"
+                  style={{ color: isHovered ? "#9667E0" : "white" }}
+                  href="/dashboard/login"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  Inicie sesión aquí
+                </Link>
               </AlertDescription>
             </Alert>
           )}

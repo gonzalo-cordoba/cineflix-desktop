@@ -13,7 +13,7 @@ import { ArrowLeft } from "lucide-react";
 
 export default function Login() {
   const handleSignIn = async (provider: string) => {
-    await signIn(provider, { callbackUrl: "/dashboard/user" });
+    await signIn(provider, { callbackUrl: "/" });
   };
 
   return (
