@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import logocn from "../../../../public/logo.png";
 import logocnblack from "../../../../public/logocnblack.png";
 import googleIcon from "../../../../public/icono-google.svg";
 import facebookIcon from "../../../../public/icono-facebook.svg";
@@ -10,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { ArrowLeft } from "lucide-react";
+import { LoginHeader } from "@/components/login";
 
 export default function Login() {
   const handleSignIn = async (provider: string) => {
@@ -18,39 +18,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
-      {/* Contenedor de */}
-      <div
-        style={{
-          width: "800px",
-          height: "800px",
-          borderRadius: "15px",
-          backgroundColor: "#9667E0",
-          border: "1px solid #ccc",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-        }}
-        className="relative flex-col items-center justify-center hidden lg:flex"
-      >
-        <Image
-          src={logocn}
-          alt="Logo Cineflix"
-          width={300}
-          height={300}
-          className="absolute top-4 text-white font-bold text-2xl mt-20"
-        />
-
-        <h1
-          className="text-white font-bold text-4xl"
-          style={{ color: "white" }}
-        >
-          Login
-        </h1>
-        <h2
-          className="text-white font-bold text-4xl mt-10"
-          style={{ color: "white" }}
-        >
-          Iniciar sesión
-        </h2>
-      </div>
+      <LoginHeader isMobile={false} />
 
       <Link href="/">
         <button
