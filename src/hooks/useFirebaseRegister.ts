@@ -53,9 +53,22 @@ export const useFirebaseRegister = (): UseFirebaseRegister => {
       setShowAlert({ type: "success", message: "Registro exitoso" });
       return { success: true, message: "Registro exitoso" };
     } catch (err: any) {
-      setError(err.message);
       setLoading(false);
-      setShowAlert({ type: "error", message: "Error al registrar el usuario" });
+
+      if (err.code === "auth/email-already-in-use") {
+        setError("Este correo ya está registrado en otra cuenta.");
+        setShowAlert({
+          type: "error",
+          message: "Este correo ya está registrado en otra cuenta",
+        });
+      } else {
+        setError(err.message);
+        setShowAlert({
+          type: "error",
+          message: "Error al registrar el usuario",
+        });
+      }
+
       return { success: false, message: err.message };
     }
   };
