@@ -113,7 +113,7 @@ export default function Login() {
                   border: "none",
                   borderRadius: "10px",
                 }}
-                className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+                className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
                 type="email"
                 placeholder="Email"
               />
@@ -136,7 +136,7 @@ export default function Login() {
                   border: "none",
                   borderRadius: "10px",
                 }}
-                className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-8 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
+                className="w-full md:w-[500px] lg:w-[600px] h-[50px] mt-2 px-4 rounded transition-colors duration-1000 hover:bg-purple-800 hover:shadow-lg"
                 type="password"
                 placeholder="Contraseña"
               />

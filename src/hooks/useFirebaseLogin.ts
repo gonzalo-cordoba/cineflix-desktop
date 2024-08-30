@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FirebaseAuth } from "@/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, User } from "firebase/auth";
+import { signIn } from "next-auth/react";
 
 interface LoginData {
   email: string;
@@ -11,16 +12,19 @@ interface UseFirebaseLogin {
   loginUser: (data: LoginData) => Promise<LoginUserResult>;
   error: string | null;
   loading: boolean;
+  user: User | null;
 }
 
 interface LoginUserResult {
   success: boolean;
+  user?: User;
   message?: string;
 }
 
 export const useFirebaseLogin = (): UseFirebaseLogin => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const loginUser = async ({
     email,
@@ -29,9 +33,21 @@ export const useFirebaseLogin = (): UseFirebaseLogin => {
     setLoading(true);
     setError(null);
     try {
-      await signInWithEmailAndPassword(FirebaseAuth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        FirebaseAuth,
+        email,
+        password
+      );
+      setUser(userCredential.user);
+
+      await signIn("credentials", {
+        email,
+        token: await userCredential.user.getIdToken(),
+        callbackUrl: "/",
+      });
+
       setLoading(false);
-      return { success: true };
+      return { success: true, user: userCredential.user };
     } catch (err: any) {
       setLoading(false);
       if (err.code === "auth/user-not-found") {
@@ -44,5 +60,5 @@ export const useFirebaseLogin = (): UseFirebaseLogin => {
       return { success: false, message: err.message };
     }
   };
-  return { loginUser, error, loading };
+  return { loginUser, error, loading, user };
 };

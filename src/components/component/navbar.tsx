@@ -30,12 +30,26 @@ import DropdownWithTabs from "../DropdownWithTabs";
 import CandyDropdown from "../CandyWithTabs";
 import PromosWithTabs from "../PromosWithTabs";
 import defaultImage from "../../../public/logo.png";
+import { useFirebaseLogin } from "@/hooks/useFirebaseLogin";
 
 export function Navbar() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [dropdownContent, setDropdownContent] = useState<React.ReactNode>(null);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { user } = useFirebaseLogin();
+  const { data: session } = useSession();
+
+  const userName =
+    session?.user?.name ||
+    user?.displayName ||
+    session?.user?.email ||
+    "Usuario";
+  const userImage =
+    typeof session?.user?.image === "string"
+      ? session.user.image
+      : user?.photoURL || defaultImage;
 
   const toggleCommand = () => {
     setIsCommandOpen(!isCommandOpen);
@@ -66,13 +80,6 @@ export function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  const { data: session } = useSession();
-
-  const userImage =
-    typeof session?.user?.image === "string"
-      ? session.user.image
-      : defaultImage;
 
   return (
     <header className="bg-[#9667E0] px-4 py-3 md:px-6 md:py-4">
@@ -192,13 +199,16 @@ export function Navbar() {
 
           {session?.user ? (
             <div className="flex items-center space-x-4">
-              <img
-                src={session.user.image}
+              <Image
+                src={userImage}
                 alt="Imagen usuario"
                 className="w-10 h-10 rounded-full cursor-pointer"
                 style={{ borderRadius: "50%" }}
+                width={96}
+                height={96}
+                priority
               />
-              <p className="text-sm">{session.user.name}</p>
+              <span className="text-sm">{userName}</span>
               <button
                 onClick={async () => {
                   await signOut({
