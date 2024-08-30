@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useFirebaseLogin } from "@/hooks/useFirebaseLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,14 +13,17 @@ import facebookIcon from "../../../../public/icono-facebook.svg";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { LoginHeader } from "@/components/login";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const { loginUser, error, loading } = useFirebaseLogin();
+
+  const router = useRouter();
 
   const {
     register,
@@ -40,6 +42,7 @@ export default function Login() {
 
     if (result.success) {
       reset();
+      router.push("/");
     }
   };
 
@@ -78,9 +81,19 @@ export default function Login() {
 
         <div>
           {error && (
-            <Alert>
+            <Alert
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                borderRadius: "15px",
+              }}
+              className="mb-5"
+            >
+              <X />
               <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription>
+                Su correo o contraseña no son validos.
+              </AlertDescription>
             </Alert>
           )}
 
@@ -197,7 +210,7 @@ export default function Login() {
             <span>Continuar con Facebook</span>
           </button>
 
-          <p className="mt-5">
+          <p className="flex justify-center mt-5">
             ¿No tienes cuenta aún?{" "}
             <Link href="/dashboard/register" style={{ color: "#9667E0" }}>
               Registrate

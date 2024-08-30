@@ -198,6 +198,7 @@ export function Navbar() {
                 className="w-10 h-10 rounded-full cursor-pointer"
                 style={{ borderRadius: "50%" }}
               />
+              <p className="text-sm">{session.user.name}</p>
               <button
                 onClick={async () => {
                   await signOut({
