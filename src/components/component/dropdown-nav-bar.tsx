@@ -12,7 +12,21 @@ import LocationIcon from "../../../public/LocationIcon";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 
-export function DropdownNavBar() {
+interface DropdownNavBarProps {
+  isHovered?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  dropdownContent?: React.ReactNode;
+  onMouseLeaveDropdown?: () => void;
+}
+
+export const DropdownNavBar: React.FC<DropdownNavBarProps> = ({
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+  dropdownContent,
+  onMouseLeaveDropdown,
+}) => {
   const [selectedCine, setSelectedCine] = useState("Elige un cine");
 
   const handleSelect = (cine: string) => {
@@ -103,7 +117,7 @@ export function DropdownNavBar() {
       </DropdownMenu>
     </div>
   );
-}
+};
 
 function ChevronDownIcon(props: any) {
   return (

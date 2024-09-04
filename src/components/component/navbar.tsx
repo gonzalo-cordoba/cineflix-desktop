@@ -34,13 +34,9 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { Button } from "../ui/button";
-import DropdownWithTabs from "../DropdownWithTabs";
-import CandyDropdown from "../CandyWithTabs";
-import PromosWithTabs from "../PromosWithTabs";
 
 // Logos e iconos
 import defaultImage from "../../../public/logo.png";
-import logocnblack from "../../../public/logocnblack.png";
 
 import { MenuIcon } from "../navbar/MenuIcon";
 
@@ -52,6 +48,8 @@ export function Navbar() {
     dropdownRef,
     handleMouseEnter,
     handleMouseLeaveDropdown,
+    activeDropdown,
+    setActiveDropdown,
   } = useDropdown();
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
@@ -92,7 +90,6 @@ export function Navbar() {
           <div className="hidden md:flex md:items-center md:gap-6">
             <Link
               href="#"
-              onMouseEnter={() => handleMouseEnter(<DropdownWithTabs />)}
               className="text-md font-extrabold hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors text-white"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -101,7 +98,6 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              onMouseEnter={() => handleMouseEnter(<CandyDropdown />)}
               className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
@@ -110,7 +106,6 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              onMouseEnter={() => handleMouseEnter(<PromosWithTabs />)}
               className="text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors"
               prefetch={false}
               style={{ color: "#F2EBFB" }}
