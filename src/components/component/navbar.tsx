@@ -11,7 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // Componentes
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { DropdownNavBar } from "./dropdown-nav-bar";
 import {
   Calculator,
@@ -21,6 +21,7 @@ import {
   Smile,
   User,
   User2Icon,
+  XIcon,
 } from "lucide-react";
 import {
   Command,
@@ -39,6 +40,8 @@ import PromosWithTabs from "../PromosWithTabs";
 
 // Logos e iconos
 import defaultImage from "../../../public/logo.png";
+import logocnblack from "../../../public/logocnblack.png";
+
 import { MenuIcon } from "../navbar/MenuIcon";
 
 export function Navbar() {
@@ -51,6 +54,8 @@ export function Navbar() {
     handleMouseLeaveDropdown,
   } = useDropdown();
   const [isCommandOpen, setIsCommandOpen] = useState(false);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { user } = useFirebaseLogin();
   const { data: session } = useSession();
@@ -74,7 +79,12 @@ export function Navbar() {
       <div className="container mx-auto flex items-center justify-between relative">
         <div className="flex flex-grow items-center gap-6 justify-start">
           <nav className="md:hidden">
-            <Button variant="ghost" size="icon" className="text-white">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
               <MenuIcon className="h-6 w-6" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
@@ -109,6 +119,109 @@ export function Navbar() {
             </Link>
           </div>
         </div>
+
+        {/* Version mobile */}
+        {isMenuOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "#7b4dc4",
+              color: "#F2EBFB",
+              zIndex: 50,
+              paddingTop: "16px",
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "16px",
+            }}
+          >
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                background: "#D4BBFC",
+                border: "none",
+                borderRadius: "5px",
+                color: "black",
+                fontSize: "24px",
+                cursor: "pointer",
+              }}
+            >
+              <XIcon style={{ height: "24px", width: "24px" }} />
+            </button>
+
+            <Image
+              src={defaultImage}
+              alt="Logo Cineflix Black"
+              width={90}
+              height={90}
+              style={{ marginBottom: "16px", marginTop: "100px" }}
+            />
+
+            <Link
+              href="#"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "16px",
+                fontSize: "18px",
+                borderBottom: "1px solid grey",
+                color: "#F2EBFB",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              Películas
+              <ChevronRightIcon
+                style={{ marginLeft: "auto", height: "16px", width: "16px" }}
+              />
+            </Link>
+            <Link
+              href="#"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "16px",
+                fontSize: "18px",
+                borderBottom: "1px solid grey",
+                color: "#F2EBFB",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              Candy
+              <ChevronRightIcon
+                style={{ marginLeft: "auto", height: "16px", width: "16px" }}
+              />
+            </Link>
+            <Link
+              href="#"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "16px",
+                fontSize: "18px",
+                borderBottom: "1px solid grey",
+                color: "#F2EBFB",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              Promos
+              <ChevronRightIcon
+                style={{ marginLeft: "auto", height: "16px", width: "16px" }}
+              />
+            </Link>
+          </div>
+        )}
+
         <Link
           href="/"
           className="absolute left-1/2 transform -translate-x-1/2 text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors flex items-center justify-center"
