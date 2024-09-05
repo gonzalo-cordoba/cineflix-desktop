@@ -14,9 +14,10 @@ import PromosWithTabs from "../PromosWithTabs";
 
 import MobileMenu from "../navbar/MobileMenu";
 import DesktopMenu from "../navbar/DesktopMenu";
-import CommandMenu from "../navbar/CommandMenu";
 
 import defaultImage from "../../../public/logo.png";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { User2Icon } from "lucide-react";
 
 export function Navbar() {
   const {
@@ -89,9 +90,8 @@ export function Navbar() {
           handleMenuClick={handleMenuClick}
         />
 
-        <DesktopMenu />
+        <DesktopMenu handleMenuClick={handleMenuClick} />
 
-        {/* Logo */}
         <Link
           href="/"
           className="absolute left-1/2 transform -translate-x-1/2 text-md font-extrabold text-white hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors flex items-center justify-center"
@@ -107,14 +107,50 @@ export function Navbar() {
           <span className="sr-only">Cineflix</span>
         </Link>
 
-        <CommandMenu
-          isCommandOpen={isCommandOpen}
-          toggleCommand={toggleCommand}
-          session={session}
-          userImage={userImage}
-          userName={userName}
-          signOut={signOut}
-        />
+        <div className="flex items-center space-x-4">
+          <button onClick={toggleCommand} className="focus:outline-none">
+            <MagnifyingGlassIcon
+              style={{ color: "white" }}
+              className="h-6 w-6"
+            />
+          </button>
+
+          {session?.user ? (
+            <div className="flex items-center space-x-4">
+              <Image
+                src={userImage}
+                alt="Imagen usuario"
+                className="w-10 h-10 rounded-full cursor-pointer"
+                style={{ borderRadius: "50%" }}
+                width={96}
+                height={96}
+                priority
+              />
+              <span className="text-sm">{userName}</span>
+              <button
+                onClick={async () => {
+                  await signOut({
+                    callbackUrl: "/",
+                  });
+                }}
+                className="text-md font-extrabold"
+                style={{
+                  color: "white",
+                }}
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="dashboard/user"
+              className="text-md font-extrabold"
+              style={{ color: "white" }}
+            >
+              <User2Icon />
+            </Link>
+          )}
+        </div>
       </div>
       {dropdownContent && (
         <div

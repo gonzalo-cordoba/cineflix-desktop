@@ -6,7 +6,7 @@ interface CommandMenuProps {
   isCommandOpen: boolean;
   toggleCommand: () => void;
   session: any;
-  userImage: any;
+  userImage: string;
   userName: string;
   signOut: typeof signOut;
 }
