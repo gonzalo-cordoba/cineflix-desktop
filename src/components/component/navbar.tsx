@@ -1,7 +1,7 @@
 "use client";
 
 // Hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropdown } from "@/hooks/useDropdown";
 import { useFirebaseLogin } from "@/hooks/useFirebaseLogin";
 import { useSession, signOut } from "next-auth/react";
@@ -39,6 +39,9 @@ import { Button } from "../ui/button";
 import defaultImage from "../../../public/logo.png";
 
 import { MenuIcon } from "../navbar/MenuIcon";
+import DropdownWithTabs from "../DropdownWithTabs";
+import CandyDropdown from "../CandyWithTabs";
+import PromosWithTabs from "../PromosWithTabs";
 
 export function Navbar() {
   const {
@@ -50,6 +53,7 @@ export function Navbar() {
     handleMouseLeaveDropdown,
     activeDropdown,
     setActiveDropdown,
+    setDropdownContent,
   } = useDropdown();
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
@@ -72,6 +76,35 @@ export function Navbar() {
     setIsCommandOpen(!isCommandOpen);
   };
 
+  // UseEffect para desactivar el scroll del menu hamburguesa
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  const handleMenuClick = (menuItem: any) => {
+    switch (menuItem) {
+      case "Peliculas":
+        setDropdownContent(<DropdownWithTabs />);
+        break;
+      case "Candy":
+        setDropdownContent(<CandyDropdown />);
+        break;
+      case "Promos":
+        setDropdownContent(<PromosWithTabs />);
+        break;
+      default:
+        setDropdownContent(null);
+    }
+  };
+
   return (
     <header className="bg-[#9667E0] px-4 py-3 md:px-6 md:py-4">
       <div className="container mx-auto flex items-center justify-between relative">
@@ -80,7 +113,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="text-white"
+              style={{ color: "white" }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <MenuIcon className="h-6 w-6" />
@@ -115,7 +148,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Version mobile */}
         {isMenuOpen && (
           <div
             style={{
@@ -124,7 +156,7 @@ export function Navbar() {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "#7b4dc4",
+              backgroundColor: "#240046",
               color: "#F2EBFB",
               zIndex: 50,
               paddingTop: "16px",
@@ -133,6 +165,8 @@ export function Navbar() {
               flexDirection: "column",
               alignItems: "center",
               gap: "16px",
+              width: "100vw",
+              height: "100vh",
             }}
           >
             <button
@@ -157,7 +191,11 @@ export function Navbar() {
               alt="Logo Cineflix Black"
               width={90}
               height={90}
-              style={{ marginBottom: "16px", marginTop: "100px" }}
+              style={{
+                marginBottom: "16px",
+                marginTop: "80px",
+                maxWidth: "80%",
+              }}
             />
 
             <Link
@@ -166,12 +204,13 @@ export function Navbar() {
                 display: "flex",
                 alignItems: "center",
                 padding: "16px",
-                fontSize: "18px",
+                fontSize: "16px",
                 borderBottom: "1px solid grey",
                 color: "#F2EBFB",
                 textDecoration: "none",
                 width: "100%",
               }}
+              onClick={() => handleMenuClick("Peliculas")}
             >
               Películas
               <ChevronRightIcon
@@ -184,12 +223,13 @@ export function Navbar() {
                 display: "flex",
                 alignItems: "center",
                 padding: "16px",
-                fontSize: "18px",
+                fontSize: "16px",
                 borderBottom: "1px solid grey",
                 color: "#F2EBFB",
                 textDecoration: "none",
                 width: "100%",
               }}
+              onClick={() => handleMenuClick("Candy")}
             >
               Candy
               <ChevronRightIcon
@@ -202,12 +242,13 @@ export function Navbar() {
                 display: "flex",
                 alignItems: "center",
                 padding: "16px",
-                fontSize: "18px",
+                fontSize: "16px",
                 borderBottom: "1px solid grey",
                 color: "#F2EBFB",
                 textDecoration: "none",
                 width: "100%",
               }}
+              onClick={() => handleMenuClick("Promos")}
             >
               Promos
               <ChevronRightIcon

@@ -3,12 +3,12 @@ import { useState, useRef, useEffect } from "react";
 export function useDropdown() {
   const [dropdownContent, setDropdownContent] = useState<React.ReactNode>(null);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null); // Agregar estado para controlar dropdown activo en móvil
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (content: React.ReactNode, identifier: string) => {
     setDropdownContent(content);
-    setActiveDropdown(identifier); // Usar identificador para el dropdown activo
+    setActiveDropdown(identifier);
   };
 
   const handleMouseLeaveDropdown = () => {
@@ -23,7 +23,7 @@ export function useDropdown() {
       !dropdownRef.current.contains(event.target as Node)
     ) {
       setDropdownContent(null);
-      setActiveDropdown(null); // Cerrar dropdown activo al hacer clic fuera
+      setActiveDropdown(null);
     }
   };
 
@@ -42,6 +42,7 @@ export function useDropdown() {
     handleMouseEnter,
     handleMouseLeaveDropdown,
     activeDropdown,
-    setActiveDropdown, // Exponer setter de activeDropdown
+    setActiveDropdown,
+    setDropdownContent,
   };
 }
