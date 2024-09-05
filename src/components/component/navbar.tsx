@@ -198,6 +198,22 @@ export function Navbar() {
               }}
             />
 
+            {/* DropdownNavBar dentro del menú hamburguesa */}
+            <Link
+              href="#"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "16px",
+                fontSize: "16px",
+                color: "#F2EBFB",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              <DropdownNavBar />
+            </Link>
+
             <Link
               href="#"
               style={{
@@ -274,7 +290,7 @@ export function Navbar() {
         </Link>
         <Link
           href="#"
-          className="flex items-center gap-6 justify-end bg-white bg-opacity-80 rounded-lg px-3 py-2"
+          className="hidden md:flex items-center gap-6 justify-end bg-white bg-opacity-80 rounded-lg px-3 py-2"
           style={{ color: "white" }}
         >
           <DropdownNavBar />
