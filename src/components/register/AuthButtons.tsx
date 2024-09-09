@@ -29,7 +29,9 @@ export const AuthButtons: React.FC<AuthButtonsProps> = ({
         <span>Continuar con Google</span>
       </button>
 
-      <button
+      {/* Boton de registrarse con Facebook deshabilitado momentaneamente hasta poder obtener la variable de entorno  */}
+
+      {/* <button
         onClick={onFacebookSignIn}
         style={{
           backgroundColor: "#1877F2",
@@ -42,7 +44,7 @@ export const AuthButtons: React.FC<AuthButtonsProps> = ({
       >
         <Image src={facebookIcon} alt="Facebook Icon" width={24} height={24} />
         <span>Continuar con Facebook</span>
-      </button>
+      </button> */}
     </div>
   );
 };

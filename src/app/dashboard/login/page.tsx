@@ -190,7 +190,9 @@ export default function Login() {
             <span>Continuar con Google</span>
           </button>
 
-          <button
+          {/* Boton de iniciar sesion con Facebook deshabilitado momentaneamente hasta poder obtener la variable de entorno  */}
+
+          {/* <button
             style={{
               backgroundColor: "#1877F2",
               color: "white",
@@ -208,7 +210,7 @@ export default function Login() {
               className="mr-2"
             />
             <span>Continuar con Facebook</span>
-          </button>
+          </button> */}
 
           <p className="flex justify-center mt-5">
             ¿No tienes cuenta aún?{" "}
