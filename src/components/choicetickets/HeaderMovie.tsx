@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 
 import DeadPoolPoster from "../../../public/deadpoolposter.webp";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const HeaderMovie = () => {
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
+  const poster = searchParams.get("poster");
+
   return (
     <div
       style={{
@@ -34,19 +41,21 @@ export const HeaderMovie = () => {
       >
         {/* Imagen de la película */}
         <div style={{ flexShrink: 0, width: "100%", maxWidth: "350px" }}>
-          <Image
-            src={DeadPoolPoster}
-            alt="Imagen de la película"
-            layout="responsive"
-            width={350}
-            height={350}
-            style={{ borderRadius: "10px" }}
-          />
+          {poster && (
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${poster}`}
+              alt={title || "Movie Poster"}
+              layout="responsive"
+              width={350}
+              height={350}
+              style={{ borderRadius: "10px" }}
+            />
+          )}
         </div>
 
         {/* Información de la película */}
         <div style={{ color: "white", flex: 1 }}>
-          <p className="text-4xl font-semibold">Título de la película</p>
+          <p className="text-4xl font-semibold">{title}</p>
           <div
             className="mt-2 mb-2"
             style={{

@@ -20,19 +20,16 @@ export function Cards({ movies }: HomeProps) {
   const { hoveredImage, isClient, handleMouseEnter, handleMouseLeave } =
     useMovieCard();
 
-  const handleViewDetail = (id: number) => {
+  const handleViewDetail = (movie: Movie) => {
     if (isClient) {
-      router.push(`/movie/${id}`);
+      // Concatenar la URL manualmente con los parámetros
+      router.push(
+        `/dashboard/choicetickets?title=${encodeURIComponent(
+          movie.title
+        )}&poster=${encodeURIComponent(movie.poster_path)}`
+      );
     } else {
       console.log("Router is not mounted yet");
-    }
-  };
-
-  const navigateToMovieDetail = (movieId: string) => {
-    if (isClient) {
-      router.push(`/movies/${movieId}`);
-    } else {
-      console.error("Router is not mount yet");
     }
   };
 
@@ -91,7 +88,7 @@ export function Cards({ movies }: HomeProps) {
                 boxShadow: "inherit",
                 borderRadius: "10px",
               }}
-              onClick={() => handleViewDetail(movie.id)}
+              onClick={() => handleViewDetail(movie)}
             >
               Comprar entradas
             </Button>
@@ -107,7 +104,7 @@ export function Cards({ movies }: HomeProps) {
                 border: "none",
                 borderRadius: "10px",
               }}
-              onClick={() => handleViewDetail(movie.id)}
+              // onClick={() => handleViewDetail(movie)}
             >
               <InfoCircledIcon className="pr-1 w-6 h-6" />
               Ver detalle
