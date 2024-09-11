@@ -1,7 +1,13 @@
+"use client";
+
 import { BarcodeIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 export const TicketSelected = () => {
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
+
   return (
     <div className="flex items-center bg-gray-100 p-4">
       <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-red-600 rounded-lg shadow-lg overflow-hidden relative">
@@ -67,7 +73,7 @@ export const TicketSelected = () => {
                 />
               </svg>
               <div className="text-lg sm:text-xl font-bold text-red-600 leading-tight">
-                CINEFLIX TICKET
+                {title}
               </div>
               <div className="text-[0.5rem] sm:text-[0.6rem] text-red-600 mt-1">
                 FECHA: 11/12/2024 &nbsp; SALA: 9 &nbsp; HORARIO: 15:30hs
