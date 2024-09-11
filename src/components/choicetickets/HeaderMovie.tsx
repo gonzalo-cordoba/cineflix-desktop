@@ -3,8 +3,7 @@
 import Image from "next/image";
 import React from "react";
 
-import DeadPoolPoster from "../../../public/deadpoolposter.webp";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export const HeaderMovie = () => {
   const searchParams = useSearchParams();
@@ -14,7 +13,7 @@ export const HeaderMovie = () => {
   return (
     <div
       style={{
-        maxWidth: "90%", // Ajusta este valor según el ancho deseado
+        maxWidth: "90%",
         height: "auto",
         borderRadius: "15px",
         backgroundColor: "#9667E0",
@@ -25,7 +24,7 @@ export const HeaderMovie = () => {
         flexDirection: "column",
         justifyContent: "space-between",
         boxSizing: "border-box",
-        margin: "0 auto", // Centra el contenedor horizontalmente
+        margin: "0 auto",
       }}
       className="relative lg:flex"
     >
@@ -89,7 +88,7 @@ export const HeaderMovie = () => {
             Subtotal
           </p>
           <p className="text-sm font-normal" style={{ color: "white" }}>
-            $10,000
+            $11,000
           </p>
         </div>
 
@@ -118,7 +117,7 @@ export const HeaderMovie = () => {
             className="text-lg font-bold"
             style={{ color: "white", textTransform: "uppercase" }}
           >
-            $11,400
+            $12,400
           </p>
         </div>
       </div>

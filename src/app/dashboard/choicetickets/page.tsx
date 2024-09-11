@@ -16,10 +16,7 @@ export default function ChoiceOfTickets() {
         <h1 className="text-2xl sm:text-3xl font-semibold">Hola usuario</h1>
       </div>
 
-      <div
-        className="flex pl-20"
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
+      <div className="flex pl-20" style={{ display: "flex" }}>
         <main style={{ width: "45%" }}>
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-5">
