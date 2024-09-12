@@ -1,12 +1,20 @@
+"use client";
+
 import {
   Button,
   HeaderMovie,
   TicketSelected,
 } from "@/components/choicetickets";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 export default function ChoiceOfTickets() {
+  const [ticketCount, setTicketCount] = useState(1);
+
+  const handleUpdateTickets = (count: any) => {
+    setTicketCount(count);
+  };
+
   return (
     <>
       <div
@@ -23,14 +31,14 @@ export default function ChoiceOfTickets() {
               General
             </h2>
             {/* Componente donde se puede elegir los tickets */}
-            <TicketSelected />
+            <TicketSelected onUpdateTickets={handleUpdateTickets} />
           </section>
         </main>
 
         <main style={{ width: "45%" }}>
           <section>
             {/* Componente donde se muestra la pelicula con su título, edad recomendada, idioma y formato, sala de cine. Con subtotal, cargo total de servicio de entradas y total. */}
-            <HeaderMovie />
+            <HeaderMovie ticketCount={ticketCount} />
           </section>
 
           {/* Contenedor de los botones */}

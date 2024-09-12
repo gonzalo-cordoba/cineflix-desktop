@@ -5,10 +5,21 @@ import React from "react";
 
 import { useSearchParams } from "next/navigation";
 
-export const HeaderMovie = () => {
+export const HeaderMovie = ({ ticketCount }: any) => {
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const poster = searchParams.get("poster");
+
+  // Precios por ticket
+  const ticketPrice = 11000;
+  const serviceChargePerTicket = 1400;
+
+  // Calculo subtotal, cargo de servicio y total
+  const subtotal = ticketCount * ticketPrice;
+  const serviceCharge = ticketCount * serviceChargePerTicket;
+  const total = subtotal + serviceCharge;
+
+  const formatNumber = (number: any) => number.toLocaleString("es-ES");
 
   return (
     <div
@@ -88,7 +99,7 @@ export const HeaderMovie = () => {
             Subtotal
           </p>
           <p className="text-sm font-normal" style={{ color: "white" }}>
-            $11,000
+            ${formatNumber(subtotal)}
           </p>
         </div>
 
@@ -101,7 +112,7 @@ export const HeaderMovie = () => {
             Cargo total por el servicio de entradas
           </p>
           <p className="text-sm font-normal" style={{ color: "white" }}>
-            $1,400
+            ${formatNumber(serviceCharge)}
           </p>
         </div>
 
@@ -117,7 +128,7 @@ export const HeaderMovie = () => {
             className="text-lg font-bold"
             style={{ color: "white", textTransform: "uppercase" }}
           >
-            $12,400
+            ${formatNumber(total)}
           </p>
         </div>
       </div>

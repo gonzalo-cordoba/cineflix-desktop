@@ -2,11 +2,35 @@
 
 import { BarcodeIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
-export const TicketSelected = () => {
+export const TicketSelected = ({ onUpdateTickets }: any) => {
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
+
+  // Estado para cantidad de entradas a sacar
+  const [ticketCount, setTicketCount] = useState(1);
+
+  // Funcion para incrementart la cantidad de entradas
+  const increaseTickets = () => {
+    setTicketCount((prev) => {
+      const newCount = prev + 1;
+      onUpdateTickets(newCount);
+      return newCount;
+    });
+  };
+
+  // Funcion para decrementar la cantidad d entradas
+  const decreaseTickets = () => {
+    setTicketCount((prev) => {
+      if (prev > 1) {
+        const newCount = prev - 1;
+        onUpdateTickets(newCount);
+        return newCount;
+      }
+      return prev;
+    });
+  };
 
   return (
     <div className="flex items-center bg-gray-100 p-4">
@@ -77,6 +101,32 @@ export const TicketSelected = () => {
               </div>
               <div className="text-[0.5rem] sm:text-[0.6rem] text-red-600 mt-1">
                 FECHA: 11/12/2024 &nbsp; SALA: 9 &nbsp; HORARIO: 15:30hs
+              </div>
+              {/* Botones para sumar y restar entradas */}
+              <div className="mt-4 flex items-center gap-4">
+                <button
+                  style={{
+                    backgroundColor: "#9667E0",
+                    color: "white",
+                    borderRadius: "10px",
+                  }}
+                  onClick={decreaseTickets}
+                  className="px-3 py-1 bg-gray-300 rounded"
+                >
+                  -
+                </button>
+                <span>{ticketCount}</span>
+                <button
+                  style={{
+                    backgroundColor: "#9667E0",
+                    color: "white",
+                    borderRadius: "10px",
+                  }}
+                  onClick={increaseTickets}
+                  className="px-3 py-1 bg-gray-300 rounded"
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
