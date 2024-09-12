@@ -5,11 +5,13 @@ import {
   HeaderMovie,
   TicketSelected,
 } from "@/components/choicetickets";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function ChoiceOfTickets() {
   const [ticketCount, setTicketCount] = useState(1);
+  const { data: session } = useSession();
 
   const handleUpdateTickets = (count: any) => {
     setTicketCount(count);
@@ -21,7 +23,9 @@ export default function ChoiceOfTickets() {
         className="flex items-center pl-20 mb-10"
         style={{ backgroundColor: "#D4BBFC", color: "white", height: "90px" }}
       >
-        <h1 className="text-2xl sm:text-3xl font-semibold">Hola usuario</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold">
+          Hola {session?.user?.name || "Usuario"}
+        </h1>
       </div>
 
       <div className="flex pl-20" style={{ display: "flex" }}>

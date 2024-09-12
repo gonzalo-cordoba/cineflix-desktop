@@ -126,7 +126,9 @@ export function Navbar() {
                 height={96}
                 priority
               />
-              <span className="text-sm">{userName}</span>
+              <span style={{ color: "white" }} className="text-sm">
+                {userName}
+              </span>
               <button
                 onClick={async () => {
                   await signOut({

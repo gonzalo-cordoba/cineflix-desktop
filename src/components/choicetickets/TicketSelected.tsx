@@ -2,7 +2,7 @@
 
 import { BarcodeIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const TicketSelected = ({ onUpdateTickets }: any) => {
   const searchParams = useSearchParams();
@@ -13,24 +13,17 @@ export const TicketSelected = ({ onUpdateTickets }: any) => {
 
   // Funcion para incrementart la cantidad de entradas
   const increaseTickets = () => {
-    setTicketCount((prev) => {
-      const newCount = prev + 1;
-      onUpdateTickets(newCount);
-      return newCount;
-    });
+    setTicketCount((prev) => prev + 1);
   };
 
   // Funcion para decrementar la cantidad d entradas
   const decreaseTickets = () => {
-    setTicketCount((prev) => {
-      if (prev > 1) {
-        const newCount = prev - 1;
-        onUpdateTickets(newCount);
-        return newCount;
-      }
-      return prev;
-    });
+    setTicketCount((prev) => (prev > 1 ? prev - 1 : prev));
   };
+
+  useEffect(() => {
+    onUpdateTickets(ticketCount);
+  }, [ticketCount, onUpdateTickets]);
 
   return (
     <div className="flex items-center bg-gray-100 p-4">
