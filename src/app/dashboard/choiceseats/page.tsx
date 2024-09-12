@@ -1,5 +1,6 @@
 "use client";
 
+import { SeatsSelected } from "@/components/choiceseats/SeatsSelected";
 import {
   Button,
   HeaderMovie,
@@ -9,7 +10,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 
-export default function ChoiceOfTickets() {
+export default function ChoiceOfSeats() {
   const [ticketCount, setTicketCount] = useState(1);
   const { data: session } = useSession();
 
@@ -32,10 +33,15 @@ export default function ChoiceOfTickets() {
         <main style={{ width: "45%" }}>
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-5">
-              General
+              Elige tus asientos
             </h2>
-            {/* Componente donde se puede elegir los tickets */}
-            <TicketSelected onUpdateTickets={handleUpdateTickets} />
+            <p>
+              Para seleccionar las butacas, hace click sobre una ubicacion
+              disponible. Esta pantalla es un indicador de la disposicion de las
+              ubicaciones en la sala, y no representa distancias reales.
+            </p>
+            {/* Componente donde se puede elegir los asientos */}
+            <SeatsSelected />
           </section>
         </main>
 
