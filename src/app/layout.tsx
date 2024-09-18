@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/component/navbar";
 import Footer from "@/components/component/footer";
 import { Providers } from "./Providers";
+import { TicketProvider } from "@/context/TicketContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -30,9 +31,11 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <Navbar />
-          {children}
-          <Footer />
+          <TicketProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </TicketProvider>
         </Providers>
       </body>
     </html>

@@ -4,20 +4,24 @@ import Image from "next/image";
 import React from "react";
 
 import { useSearchParams } from "next/navigation";
+import { useTicketContext } from "@/context/TicketContext";
 
-export const HeaderMovie = ({ ticketCount }: any) => {
-  const searchParams = useSearchParams();
-  const title = searchParams.get("title");
-  const poster = searchParams.get("poster");
+export const HeaderMovie = () => {
+  const { ticketCount, movieInfo, subtotal, serviceCharge, total } =
+    useTicketContext();
 
-  // Precios por ticket
-  const ticketPrice = 11000;
-  const serviceChargePerTicket = 1400;
+  // const searchParams = useSearchParams();
+  // const title = searchParams.get("title");
+  // const poster = searchParams.get("poster");
 
-  // Calculo subtotal, cargo de servicio y total
-  const subtotal = ticketCount * ticketPrice;
-  const serviceCharge = ticketCount * serviceChargePerTicket;
-  const total = subtotal + serviceCharge;
+  // // Precios por ticket
+  // const ticketPrice = 11000;
+  // const serviceChargePerTicket = 1400;
+
+  // // Calculo subtotal, cargo de servicio y total
+  // const subtotal = ticketCount * ticketPrice;
+  // const serviceCharge = ticketCount * serviceChargePerTicket;
+  // const total = subtotal + serviceCharge;
 
   const formatNumber = (number: any) => number.toLocaleString("es-ES");
 
@@ -51,10 +55,10 @@ export const HeaderMovie = ({ ticketCount }: any) => {
       >
         {/* Imagen de la película */}
         <div style={{ flexShrink: 0, width: "100%", maxWidth: "350px" }}>
-          {poster && (
+          {movieInfo.poster && (
             <Image
-              src={`https://image.tmdb.org/t/p/w500${poster}`}
-              alt={title || "Movie Poster"}
+              src={`https://image.tmdb.org/t/p/w500${movieInfo.poster}`}
+              alt={movieInfo.title || "Movie Poster"}
               layout="responsive"
               width={350}
               height={350}
@@ -65,7 +69,7 @@ export const HeaderMovie = ({ ticketCount }: any) => {
 
         {/* Información de la película */}
         <div style={{ color: "white", flex: 1 }}>
-          <p className="text-4xl font-semibold">{title}</p>
+          <p className="text-4xl font-semibold">{movieInfo.title}</p>
           <div
             className="mt-2 mb-2"
             style={{

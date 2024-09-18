@@ -9,14 +9,16 @@ import {
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useTicketContext } from "@/context/TicketContext";
 
 export default function ChoiceOfSeats() {
   const [ticketCount, setTicketCount] = useState(1);
   const { data: session } = useSession();
+  // const {ticketCount, movieInfo, total} = useTicketContext();
 
-  const handleUpdateTickets = (count: any) => {
-    setTicketCount(count);
-  };
+  // const handleUpdateTickets = (count: any) => {
+  //   setTicketCount(count);
+  // };
 
   return (
     <>
@@ -48,7 +50,7 @@ export default function ChoiceOfSeats() {
         <main style={{ width: "45%" }}>
           <section>
             {/* Componente donde se muestra la pelicula con su título, edad recomendada, idioma y formato, sala de cine. Con subtotal, cargo total de servicio de entradas y total. */}
-            <HeaderMovie ticketCount={ticketCount} />
+            <HeaderMovie />
           </section>
 
           {/* Contenedor de los botones */}
@@ -60,7 +62,7 @@ export default function ChoiceOfSeats() {
               marginTop: "20px",
             }}
           >
-            <Link href="/">
+            <Link href="/dashboard/choicetickets">
               <Button label="Volver" color="#9667E0" />
             </Link>
 
