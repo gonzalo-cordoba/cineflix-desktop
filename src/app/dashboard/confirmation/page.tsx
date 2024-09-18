@@ -1,24 +1,24 @@
 "use client";
 
-import { SeatsSelected } from "@/components/choiceseats/SeatsSelected";
+import React, { useState } from "react";
 import {
-  Button,
+  Button as ConfirmButton,
   HeaderMovie,
   TicketSelected,
 } from "@/components/choicetickets";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useTicketContext } from "@/context/TicketContext";
+import { useSession } from "next-auth/react";
+import { Form } from "@/components/ui/form";
+import { ProfileForm } from "@/components/confirmation/Form";
 
-export default function ChoiceOfSeats() {
-  const [ticketCount, setTicketCount] = useState(1);
+export default function Confirmation() {
+  // const [] = useState(1);
   const { data: session } = useSession();
-  // const {ticketCount, movieInfo, total} = useTicketContext();
 
-  // const handleUpdateTickets = (count: any) => {
-  //   setTicketCount(count);
-  // };
+  const handleFormSubmit = (data: any) => {
+    // IMPORTANTE: Agregar una alerta que muestre al usuario el envio correcto de su formulario
+    console.log("Formulario enviado con exito", data);
+  };
 
   return (
     <>
@@ -34,16 +34,8 @@ export default function ChoiceOfSeats() {
       <div className="flex pl-20" style={{ display: "flex" }}>
         <main style={{ width: "45%" }}>
           <section>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-5">
-              Elige tus asientos
-            </h2>
-            <p>
-              Para seleccionar las butacas, hace click sobre una ubicacion
-              disponible. Esta pantalla es un indicador de la disposicion de las
-              ubicaciones en la sala, y no representa distancias reales.
-            </p>
-            {/* Componente donde se puede elegir los asientos */}
-            <SeatsSelected />
+            {/* Aca va el formulario de compra */}
+            <ProfileForm onSubmit={handleFormSubmit} />
           </section>
         </main>
 
@@ -63,12 +55,19 @@ export default function ChoiceOfSeats() {
             }}
           >
             <Link href="/dashboard/choicetickets">
-              <Button label="Volver" color="#9667E0" />
+              <ConfirmButton label="Volver" color="#9667E0" />
             </Link>
 
-            <Link href="/dashboard/confirmation">
-              <Button label="Siguiente" color="#9667E0" />
-            </Link>
+            <ConfirmButton
+              label="Confirmar"
+              color="#9667E0"
+              onClick={() => {
+                const form = document.querySelector("form");
+                if (form) {
+                  form.requestSubmit();
+                }
+              }}
+            />
           </section>
         </main>
       </div>
