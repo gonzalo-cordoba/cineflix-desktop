@@ -1,24 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Button as ConfirmButton,
   HeaderMovie,
   TicketSelected,
 } from "@/components/choicetickets";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Form } from "@/components/ui/form";
 import { ProfileForm } from "@/components/confirmation/Form";
+import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 export default function Confirmation() {
   // const [] = useState(1);
   const { data: session } = useSession();
+  const router = useRouter();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleFormSubmit = (data: any) => {
     // IMPORTANTE: Agregar una alerta que muestre al usuario el envio correcto de su formulario
+    Swal.fire({
+      icon: "success",
+      title: "¡Éxito!",
+      text: "¡Gracias por tu compra!. Tu ticket para la película ha sido reservado con éxito.",
+      timer: 5000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
     console.log("Formulario enviado con exito", data);
+    setFormSubmitted(true);
   };
+
+  useEffect(() => {
+    if (formSubmitted) {
+      const timer = setTimeout(() => {
+        router.push("/");
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [formSubmitted, router]);
 
   return (
     <>

@@ -6,6 +6,7 @@ import { Navbar } from "@/components/component/navbar";
 import Footer from "@/components/component/footer";
 import { Providers } from "./Providers";
 import { TicketProvider } from "@/context/TicketContext";
+import { Toaster } from "react-hot-toast";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Providers>
           <TicketProvider>
             <Navbar />
+            <Toaster />
             {children}
             <Footer />
           </TicketProvider>
