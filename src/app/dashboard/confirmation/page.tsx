@@ -79,7 +79,7 @@ export default function Confirmation() {
               marginTop: "20px",
             }}
           >
-            <Link href="/dashboard/choicetickets">
+            <Link href="/dashboard/choiceseats">
               <ConfirmButton label="Volver" color="#9667E0" />
             </Link>
 

@@ -11,14 +11,33 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useTicketContext } from "@/context/TicketContext";
 
+import { AlertCircle } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
+
 export default function ChoiceOfSeats() {
   const [ticketCount, setTicketCount] = useState(1);
+  const [hasSelectedSeats, setHasSelectedSeats] = useState(false);
   const { data: session } = useSession();
-  // const {ticketCount, movieInfo, total} = useTicketContext();
+  const [showAlert, setShowAlert] = useState(false);
+  const router = useRouter();
 
-  // const handleUpdateTickets = (count: any) => {
-  //   setTicketCount(count);
-  // };
+  const handleSeatsChange = (hasSelected: boolean) => {
+    setHasSelectedSeats(hasSelected);
+    if (hasSelected) {
+      setShowAlert(false);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (!hasSelectedSeats) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+      router.push("/dashboard/confirmation");
+    }
+  };
 
   return (
     <>
@@ -42,8 +61,32 @@ export default function ChoiceOfSeats() {
               disponible. Esta pantalla es un indicador de la disposicion de las
               ubicaciones en la sala, y no representa distancias reales.
             </p>
+            {showAlert && (
+              <Alert
+                variant="destructive"
+                style={{
+                  display: "inline-block",
+                  maxWidth: "425px",
+                  whiteSpace: "nowrap",
+                  backgroundColor: "red", // Color de fondo de la alerta
+                  color: "white", // Color del texto de la alerta
+                  border: "1px solid #f5c6cb", // Borde de la alerta
+                  padding: "0.25rem 0.5rem", // Espaciado interno
+                  borderRadius: "0.5rem", // Bordes redondeados
+                  // margin: "1rem", // Margen alrededor de la alerta
+                  marginTop: "1.5rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>
+                  Seleccione sus butacas para continuar con su compra.
+                </AlertDescription>
+              </Alert>
+            )}
             {/* Componente donde se puede elegir los asientos */}
-            <SeatsSelected />
+            <SeatsSelected onSeatsChange={handleSeatsChange} />
           </section>
         </main>
 
@@ -66,9 +109,12 @@ export default function ChoiceOfSeats() {
               <Button label="Volver" color="#9667E0" />
             </Link>
 
-            <Link href="/dashboard/confirmation">
-              <Button label="Siguiente" color="#9667E0" />
-            </Link>
+            <Button
+              label="Siguiente"
+              color="#9667E0"
+              onClick={handleNextClick}
+              disabled={!hasSelectedSeats}
+            />
           </section>
         </main>
       </div>

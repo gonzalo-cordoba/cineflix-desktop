@@ -4,6 +4,7 @@ type Props = {
   label: string;
   color?: string;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 export const Button: React.FC<Props> = ({ label, color = "blue", onClick }) => {

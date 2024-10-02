@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from "react";
+import React, { useState, CSSProperties, useEffect } from "react";
 
 type Seat = {
   id: string;
@@ -18,7 +18,11 @@ const buttonStyle: CSSProperties = {
   margin: "2px",
 };
 
-export const SeatsSelected = () => {
+export const SeatsSelected = ({
+  onSeatsChange,
+}: {
+  onSeatsChange: (hasSelectedSeats: boolean) => void;
+}) => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
   const seatsPerRow = 15;
   const seatsPerSide = 7; // Asientos a cada lado del pasillo central
@@ -33,6 +37,11 @@ export const SeatsSelected = () => {
       }))
     )
   );
+
+  useEffect(() => {
+    const hasSelectedSeats = seats.some((seat) => seat.status === "selected");
+    onSeatsChange(hasSelectedSeats);
+  }, [seats, onSeatsChange]);
 
   const handleSeatClick = (clickedSeat: Seat) => {
     if (clickedSeat.status === "unavailable") return;
