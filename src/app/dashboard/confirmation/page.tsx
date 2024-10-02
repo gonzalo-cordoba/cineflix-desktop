@@ -22,6 +22,7 @@ export default function Confirmation() {
 
   const handleFormSubmit = (data: any) => {
     // IMPORTANTE: Agregar una alerta que muestre al usuario el envio correcto de su formulario
+
     Swal.fire({
       icon: "success",
       title: "¡Éxito!",

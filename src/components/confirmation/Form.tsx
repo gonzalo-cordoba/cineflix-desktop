@@ -180,7 +180,17 @@ export function ProfileForm({ onSubmit }: ProfileFormProps) {
                   border: "none",
                 }}
               >
-                <Input placeholder="123" {...field} />
+                <Input
+                  placeholder="123"
+                  {...field}
+                  maxLength={3}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      field.onChange(value);
+                    }
+                  }}
+                />
               </FormControl>
               {form.formState.errors.securityCode && (
                 <FormMessage style={{ color: "red", fontSize: "14px" }}>
@@ -206,7 +216,22 @@ export function ProfileForm({ onSubmit }: ProfileFormProps) {
                   border: "none",
                 }}
               >
-                <Input placeholder="MM/AA" {...field} />
+                <Input
+                  placeholder="MM/AA"
+                  {...field}
+                  maxLength={5}
+                  onChange={(e) => {
+                    let value = e.target.value;
+
+                    value = value.replace(/[^\d]/g, "");
+
+                    if (value.length >= 3) {
+                      value = `${value.slice(0, 2)}/${value.slice(2, 4)}`;
+                    }
+
+                    field.onChange(value);
+                  }}
+                />
               </FormControl>
               {form.formState.errors.expirationDate && (
                 <FormMessage style={{ color: "red", fontSize: "14px" }}>
