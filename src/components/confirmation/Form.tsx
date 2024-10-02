@@ -154,7 +154,25 @@ export function ProfileForm({ onSubmit }: ProfileFormProps) {
                   border: "none",
                 }}
               >
-                <Input placeholder="1234 5678 9012 3456" {...field} />
+                <Input
+                  placeholder="1234 5678 9012 3456"
+                  {...field}
+                  maxLength={19}
+                  onChange={(e) => {
+                    let value = e.target.value;
+
+                    // Elimino todo lo que no sea dígito
+                    value = value.replace(/[^\d]/g, "");
+
+                    // Agrupo en bloques de 4 dígitos con espacios
+                    value = value.replace(/(.{4})/g, "$1 ").trim();
+
+                    // Limite de 16 dígitos
+                    if (value.replace(/\s/g, "").length <= 16) {
+                      field.onChange(value);
+                    }
+                  }}
+                />
               </FormControl>
               {form.formState.errors.cardNumber && (
                 <FormMessage style={{ color: "red", fontSize: "14px" }}>
