@@ -9,6 +9,8 @@ import { Movie, MoviesResponse } from "@/lib/types";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useMovieCard } from "@/hooks/useMovieCard";
+import { useEffect, useState } from "react";
+import { ColorRing } from "react-loader-spinner";
 
 interface HomeProps {
   movies: Movie[];
@@ -19,6 +21,19 @@ export function Cards({ movies }: HomeProps) {
 
   const { hoveredImage, isClient, handleMouseEnter, handleMouseLeave } =
     useMovieCard();
+
+  // Estado de carga
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (movies.length > 0) {
+        setLoading(false);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [movies]);
 
   const handleViewDetail = (movie: Movie) => {
     if (isClient) {
@@ -35,6 +50,22 @@ export function Cards({ movies }: HomeProps) {
 
   if (!isClient) {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-96">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={["#9667E0", "#9667E0", "#9667E0", "#9667E0", "#9667E0"]}
+        />
+      </div>
+    );
   }
 
   return (
