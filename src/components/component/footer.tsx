@@ -1,8 +1,14 @@
 import Link from "next/link";
+import * as motion from "framer-motion/client";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#9667E0] text-white shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
+    <motion.footer
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="bg-[#9667E0] text-white shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4"
+    >
       <div className="flex flex-col md:flex-row md:justify-between">
         <div className="flex flex-col md:flex-row">
           <ul className="flex flex-col mb-6 md:mb-0">
@@ -121,6 +127,6 @@ export default function Footer() {
           reservados.
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -13,6 +13,7 @@ import { Form } from "@/components/ui/form";
 import { ProfileForm } from "@/components/confirmation/Form";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import * as motion from "framer-motion/client";
 
 export default function Confirmation() {
   // const [] = useState(1);
@@ -47,16 +48,25 @@ export default function Confirmation() {
 
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
         className="flex items-center pl-20 mb-10"
         style={{ backgroundColor: "#D4BBFC", color: "white", height: "90px" }}
       >
         <h1 className="text-2xl sm:text-3xl font-semibold">
           Hola {session?.user?.name || "Usuario"}
         </h1>
-      </div>
+      </motion.div>
 
-      <div className="flex pl-20" style={{ display: "flex" }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex pl-20"
+        style={{ display: "flex" }}
+      >
         <main style={{ width: "45%" }}>
           <section>
             {/* Aca va el formulario de compra */}
@@ -95,7 +105,7 @@ export default function Confirmation() {
             />
           </section>
         </main>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import * as motion from "framer-motion/client";
 
 interface DesktopMenuProps {
   handleMenuClick: (menuItem: string) => void;

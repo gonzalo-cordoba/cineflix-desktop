@@ -9,10 +9,16 @@ import logocn from "../../../../public/logo.png";
 import logocnblack from "../../../../public/logocnblack.png";
 
 import { PromotionalImages, RegistrationForm } from "@/components/register";
+import * as motion from "framer-motion/client";
 
 export default function Register() {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16"
+    >
       <div
         style={{
           width: "800px",
@@ -42,7 +48,7 @@ export default function Register() {
         <PromotionalImages />
       </div>
 
-      <Link href="/">
+      <Link href="/user">
         <button
           className="flex items-center font-bold px-4 py-2 ml-5"
           style={{
@@ -68,6 +74,6 @@ export default function Register() {
 
         <RegistrationForm />
       </div>
-    </div>
+    </motion.div>
   );
 }

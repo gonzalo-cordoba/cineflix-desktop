@@ -15,6 +15,7 @@ import { AlertCircle } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
+import * as motion from "framer-motion/client";
 
 export default function ChoiceOfSeats() {
   const [ticketCount, setTicketCount] = useState(1);
@@ -41,16 +42,25 @@ export default function ChoiceOfSeats() {
 
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
         className="flex items-center pl-20 mb-10"
         style={{ backgroundColor: "#D4BBFC", color: "white", height: "90px" }}
       >
         <h1 className="text-2xl sm:text-3xl font-semibold">
           Hola {session?.user?.name || "Usuario"}
         </h1>
-      </div>
+      </motion.div>
 
-      <div className="flex pl-20" style={{ display: "flex" }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex pl-20"
+        style={{ display: "flex" }}
+      >
         <main style={{ width: "45%" }}>
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-5">
@@ -117,7 +127,7 @@ export default function ChoiceOfSeats() {
             />
           </section>
         </main>
-      </div>
+      </motion.div>
     </>
   );
 }

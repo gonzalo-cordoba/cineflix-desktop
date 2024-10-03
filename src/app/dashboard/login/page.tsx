@@ -17,6 +17,7 @@ import { ArrowLeft, X } from "lucide-react";
 import { LoginHeader } from "@/components/login";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
+import * as motion from "framer-motion/client";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -51,10 +52,15 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:justify-start lg:items-start lg:mt-28 lg:ml-16"
+    >
       <LoginHeader isMobile={false} />
 
-      <Link href="/">
+      <Link href="/user">
         <button
           className="flex items-center font-bold px-4 py-2 ml-5"
           style={{
@@ -220,6 +226,6 @@ export default function Login() {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

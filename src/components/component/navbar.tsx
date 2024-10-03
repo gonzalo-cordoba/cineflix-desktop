@@ -18,6 +18,7 @@ import DesktopMenu from "../navbar/DesktopMenu";
 import defaultImage from "../../../public/logo.png";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { User2Icon } from "lucide-react";
+import * as motion from "framer-motion/client";
 
 export function Navbar() {
   const {
