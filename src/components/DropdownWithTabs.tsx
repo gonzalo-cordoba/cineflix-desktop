@@ -2,6 +2,9 @@ import { useState } from "react";
 import FeaturedDropdown from "./component/featuredDropdown";
 import SoonDropdown from "./component/soonDropdown";
 import FormatsDropdown from "./component/formatsDropdown";
+import Image from "next/image";
+
+import imagenPrueba from "../../public/imax-logo.jpg";
 
 interface TabContent {
   title: string;
