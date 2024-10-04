@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useMovieCard } from "@/hooks/useMovieCard";
 import { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
+import * as motion from "framer-motion/client";
 
 interface HomeProps {
   movies: Movie[];
@@ -48,6 +49,14 @@ export function Cards({ movies }: HomeProps) {
     }
   };
 
+  const handleViewTrailer = (movie: Movie) => {
+    if (isClient) {
+      router.push(`/dashboard/trailermovie?id=${movie.id}`);
+    } else {
+      console.log("Error al mostrar el trailer");
+    }
+  };
+
   if (!isClient) {
     return null;
   }
@@ -74,7 +83,10 @@ export function Cards({ movies }: HomeProps) {
       style={{ border: "none", boxShadow: "none" }}
     >
       {movies.map((movie) => (
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
           key={movie.id}
           className="relative"
           onMouseEnter={() => handleMouseEnter(movie.id)}
@@ -135,13 +147,13 @@ export function Cards({ movies }: HomeProps) {
                 border: "none",
                 borderRadius: "10px",
               }}
-              // onClick={() => handleViewDetail(movie)}
+              onClick={() => handleViewTrailer(movie)}
             >
               <InfoCircledIcon className="pr-1 w-6 h-6" />
               Ver detalle
             </Button>
           </div>
-        </div>
+        </motion.div>
       ))}
     </Card>
   );
