@@ -74,7 +74,7 @@ export default function Confirmation() {
           </section>
         </main>
 
-        <main style={{ width: "45%" }}>
+        <main style={{ width: "45%", paddingBottom: "5rem" }}>
           <section>
             {/* Componente donde se muestra la pelicula con su título, edad recomendada, idioma y formato, sala de cine. Con subtotal, cargo total de servicio de entradas y total. */}
             <HeaderMovie />

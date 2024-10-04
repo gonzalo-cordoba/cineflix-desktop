@@ -1,21 +1,12 @@
-import React, { useState, CSSProperties, useEffect } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 type Seat = {
   id: string;
   row: string;
   number: number;
   status: "available" | "unavailable" | "selected";
-};
-
-const buttonStyle: CSSProperties = {
-  width: "24px",
-  height: "24px",
-  padding: "0",
-  fontSize: "12px",
-  fontWeight: "bold",
-  border: "none",
-  cursor: "pointer",
-  margin: "2px",
 };
 
 export const SeatsSelected = ({
@@ -25,7 +16,7 @@ export const SeatsSelected = ({
 }) => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
   const seatsPerRow = 15;
-  const seatsPerSide = 7; // Asientos a cada lado del pasillo central
+  const seatsPerSide = 7;
 
   const [seats, setSeats] = useState<Seat[]>(
     rows.flatMap((row) =>
@@ -58,157 +49,172 @@ export const SeatsSelected = ({
     );
   };
 
-  const getSeatColor = (status: Seat["status"]): CSSProperties => {
+  const getSeatStyle = (status: Seat["status"]) => {
     switch (status) {
       case "available":
-        return {
-          backgroundColor: "#9667E0",
-          color: "white",
-          borderRadius: "5px",
-        };
+        return { backgroundColor: "#9f7aea", color: "white" }; // purple
       case "unavailable":
         return {
-          backgroundColor: "#9ca3af",
+          backgroundColor: "#a0aec0",
           color: "white",
           cursor: "not-allowed",
-          borderRadius: "5px",
-        };
+        }; // gray
       case "selected":
-        return {
-          backgroundColor: "#ff9e00",
-          color: "black",
-          borderRadius: "5px",
-        };
+        return { backgroundColor: "#ecc94b", color: "black" }; // yellow
     }
   };
 
-  const containerStyle: CSSProperties = {
-    maxWidth: "1000px",
-    margin: "0 auto",
-    padding: "16px",
-  };
-
-  const screenStyle: CSSProperties = {
-    height: "8px",
-    backgroundColor: "#d1d5db",
-    width: "100%",
-    borderRadius: "4px",
-    marginBottom: "32px",
-  };
-
-  const rowStyle: CSSProperties = {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "8px",
-  };
-
-  const seatGroupStyle: CSSProperties = {
-    display: "flex",
-  };
-
-  const legendStyle: CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
-    gap: "16px",
-    marginTop: "24px",
-    fontSize: "14px",
-  };
-
-  const legendItemStyle: CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-  };
-
-  const legendColorStyle: CSSProperties = {
-    width: "16px",
-    height: "16px",
-    marginRight: "8px",
-  };
-
   return (
-    <div style={containerStyle}>
-      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+    <div style={{ maxWidth: "1024px", margin: "auto", padding: "1rem" }}>
+      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
         <h2
-          style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            marginBottom: "0.5rem",
+          }}
         >
           PANTALLA
         </h2>
-        <div style={screenStyle}></div>
+        <div
+          style={{
+            height: "0.5rem",
+            backgroundColor: "#cbd5e0",
+            width: "100%",
+            borderRadius: "0.25rem",
+          }}
+        ></div>
       </div>
-      <div>
-        {rows.map((row) => (
-          <div key={row} style={rowStyle}>
+      <div style={{ overflowX: "auto" }}>
+        <div style={{ display: "inline-block", minWidth: "100%" }}>
+          {rows.map((row) => (
             <div
+              key={row}
               style={{
-                width: "24px",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: "bold",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
               }}
             >
-              {row}
+              <div
+                style={{
+                  width: "1.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                {row}
+              </div>
+              <div style={{ display: "flex" }}>
+                {seats
+                  .filter((seat) => seat.row === row)
+                  .slice(0, seatsPerSide)
+                  .map((seat) => (
+                    <button
+                      key={seat.id}
+                      style={{
+                        width: "1.5rem",
+                        height: "1.5rem",
+                        fontSize: "0.75rem",
+                        fontWeight: "bold",
+                        border: "none",
+                        cursor: "pointer",
+                        margin: "0.125rem",
+                        borderRadius: "0.25rem",
+                        ...getSeatStyle(seat.status),
+                      }}
+                      onClick={() => handleSeatClick(seat)}
+                    >
+                      {seat.number}
+                    </button>
+                  ))}
+              </div>
+              <div style={{ width: "1.5rem" }}></div>{" "}
+              {/* Space for central aisle */}
+              <div style={{ display: "flex" }}>
+                {seats
+                  .filter((seat) => seat.row === row)
+                  .slice(seatsPerSide)
+                  .map((seat) => (
+                    <button
+                      key={seat.id}
+                      style={{
+                        width: "1.5rem",
+                        height: "1.5rem",
+                        fontSize: "0.75rem",
+                        fontWeight: "bold",
+                        border: "none",
+                        cursor: "pointer",
+                        margin: "0.125rem",
+                        borderRadius: "0.25rem",
+                        ...getSeatStyle(seat.status),
+                      }}
+                      onClick={() => handleSeatClick(seat)}
+                    >
+                      {seat.number}
+                    </button>
+                  ))}
+              </div>
+              <div
+                style={{
+                  width: "1.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                {row}
+              </div>
             </div>
-            <div style={seatGroupStyle}>
-              {seats
-                .filter((seat) => seat.row === row)
-                .slice(0, seatsPerSide)
-                .map((seat) => (
-                  <button
-                    key={seat.id}
-                    style={{ ...buttonStyle, ...getSeatColor(seat.status) }}
-                    onClick={() => handleSeatClick(seat)}
-                  >
-                    {seat.number}
-                  </button>
-                ))}
-            </div>
-            <div style={{ width: "24px" }}></div>{" "}
-            {/* Espacio para el pasillo central */}
-            <div style={seatGroupStyle}>
-              {seats
-                .filter((seat) => seat.row === row)
-                .slice(seatsPerSide)
-                .map((seat) => (
-                  <button
-                    key={seat.id}
-                    style={{ ...buttonStyle, ...getSeatColor(seat.status) }}
-                    onClick={() => handleSeatClick(seat)}
-                  >
-                    {seat.number}
-                  </button>
-                ))}
-            </div>
-            <div
-              style={{
-                width: "24px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {row}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <div style={legendStyle}>
-        <div style={legendItemStyle}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "1rem",
+          marginTop: "1.5rem",
+          fontSize: "0.875rem",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div
-            style={{ ...legendColorStyle, backgroundColor: "#9667E0" }}
+            style={{
+              width: "1rem",
+              height: "1rem",
+              backgroundColor: "#9f7aea",
+              marginRight: "0.5rem",
+              borderRadius: "0.25rem",
+            }}
           ></div>
           <span>Disponible</span>
         </div>
-        <div style={legendItemStyle}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div
-            style={{ ...legendColorStyle, backgroundColor: "#ff9e00" }}
+            style={{
+              width: "1rem",
+              height: "1rem",
+              backgroundColor: "#ecc94b",
+              marginRight: "0.5rem",
+              borderRadius: "0.25rem",
+            }}
           ></div>
           <span>Tus butacas</span>
         </div>
-        <div style={legendItemStyle}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div
-            style={{ ...legendColorStyle, backgroundColor: "#9ca3af" }}
+            style={{
+              width: "1rem",
+              height: "1rem",
+              backgroundColor: "#a0aec0",
+              marginRight: "0.5rem",
+              borderRadius: "0.25rem",
+            }}
           ></div>
           <span>No disponible</span>
         </div>
