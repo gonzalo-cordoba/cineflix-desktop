@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axiosInstance";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMovieCard } from "@/hooks/useMovieCard";
 import * as motion from "framer-motion/client";
 import Link from "next/link";
 import { ColorRing } from "react-loader-spinner";
 
 import { ArrowLeft } from "lucide-react";
+import { Movie } from "@/lib/types";
 
 interface TrailerResponse {
   id: number;
@@ -16,6 +17,7 @@ interface TrailerResponse {
 }
 
 interface MovieDetails {
+  id?: number;
   title: string;
   overview: string;
   genres: { id: number; name: string }[];
@@ -29,8 +31,24 @@ export default function TrailerMovie() {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
 
+  const router = useRouter();
+  const { isClient } = useMovieCard();
+
   const searchParams = useSearchParams();
   const movieId = searchParams.get("id");
+
+  const handleViewDetail = (movie: Movie) => {
+    if (isClient) {
+      // Concatenar la URL manualmente con los parámetros
+      router.push(
+        `/dashboard/choicetickets?title=${encodeURIComponent(
+          movie.title
+        )}&poster=${encodeURIComponent(movie.poster_path)}`
+      );
+    } else {
+      console.log("Router is not mounted yet");
+    }
+  };
 
   useEffect(() => {
     if (movieId) {
@@ -156,8 +174,8 @@ export default function TrailerMovie() {
   };
 
   const genreStyle: React.CSSProperties = {
-    backgroundColor: "#3b82f6",
-    color: "white",
+    backgroundColor: "#D4BBFC",
+    color: "black",
     padding: "0.25rem 0.75rem",
     borderRadius: "9999px",
   };
@@ -253,7 +271,22 @@ export default function TrailerMovie() {
                 <span>{movieDetails.vote_average}/10</span>
               </div>
             </div>
-            <button style={buttonStyle}>Comprar Boletos</button>
+            <button
+              style={buttonStyle}
+              onClick={() => {
+                if (movieDetails?.id && movieDetails.poster_path) {
+                  handleViewDetail({
+                    id: movieDetails.id,
+                    title: movieDetails.title,
+                    poster_path: movieDetails.poster_path,
+                  });
+                } else {
+                  console.error("Movie ID or Poster Path is undefined");
+                }
+              }}
+            >
+              Comprar Boletos
+            </button>
           </div>
         </motion.div>
       </div>
