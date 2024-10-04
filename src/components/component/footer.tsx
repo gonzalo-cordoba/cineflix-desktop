@@ -7,7 +7,7 @@ export default function Footer() {
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#9667E0] text-white shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4"
+      className="bg-[#9667E0] text-white shadow rounded-lg p-4 md:p-6 xl:p-8"
     >
       <div className="flex flex-col md:flex-row md:justify-between">
         <div className="flex flex-col md:flex-row">

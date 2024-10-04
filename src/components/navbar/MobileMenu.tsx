@@ -67,17 +67,19 @@ export default function MobileMenu({
             <XIcon style={{ height: "24px", width: "24px" }} />
           </button>
 
-          <Image
-            src={defaultImage}
-            alt="Logo Cineflix Black"
-            width={90}
-            height={90}
-            style={{
-              marginBottom: "16px",
-              marginTop: "80px",
-              maxWidth: "80%",
-            }}
-          />
+          <Link href="/">
+            <Image
+              src={defaultImage}
+              alt="Logo Cineflix Black"
+              width={90}
+              height={90}
+              style={{
+                marginBottom: "16px",
+                marginTop: "80px",
+                maxWidth: "80%",
+              }}
+            />
+          </Link>
 
           {/* DropdownNavBar dentro del menú hamburguesa */}
           <Link

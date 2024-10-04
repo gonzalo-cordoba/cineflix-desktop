@@ -17,8 +17,9 @@ import DesktopMenu from "../navbar/DesktopMenu";
 
 import defaultImage from "../../../public/logo.png";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { User2Icon } from "lucide-react";
+import { LogOutIcon, User2Icon } from "lucide-react";
 import * as motion from "framer-motion/client";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export function Navbar() {
   const {
@@ -38,6 +39,7 @@ export function Navbar() {
 
   const { user } = useFirebaseLogin();
   const { data: session } = useSession();
+  const isMobile = useIsMobile();
 
   const userName =
     session?.user?.name ||
@@ -48,6 +50,17 @@ export function Navbar() {
     typeof session?.user?.image === "string"
       ? session.user.image
       : user?.photoURL || defaultImage;
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
   const toggleCommand = () => {
     setIsCommandOpen(!isCommandOpen);
@@ -105,16 +118,17 @@ export function Navbar() {
             height={60}
             priority
           />
+
           <span className="sr-only">Cineflix</span>
         </Link>
 
         <div className="flex items-center space-x-4">
-          <button onClick={toggleCommand} className="focus:outline-none">
+          {/* <button onClick={toggleCommand} className="focus:outline-none">
             <MagnifyingGlassIcon
               style={{ color: "white" }}
               className="h-6 w-6"
             />
-          </button>
+          </button> */}
 
           {session?.user ? (
             <div className="flex items-center space-x-4">
@@ -127,9 +141,13 @@ export function Navbar() {
                 height={96}
                 priority
               />
-              <span style={{ color: "white" }} className="text-sm">
-                {userName}
-              </span>
+
+              {!isMobile && (
+                <span style={{ color: "white" }} className="text-sm">
+                  {userName}
+                </span>
+              )}
+
               <button
                 onClick={async () => {
                   await signOut({
@@ -141,7 +159,11 @@ export function Navbar() {
                   color: "white",
                 }}
               >
-                Cerrar sesión
+                {isMobile ? (
+                  <LogOutIcon className="w-6 h-6" />
+                ) : (
+                  "Cerrar sesion"
+                )}
               </button>
             </div>
           ) : (
