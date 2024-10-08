@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -18,6 +18,7 @@ import Image3 from "../../../public/banner3.png";
 export function BannerCarrousel() {
   const images = [Image1, Image2, Image3];
   const carouselRef = useRef<HTMLDivElement>(null);
+  const currentIndexRef = useRef(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,12 +26,22 @@ export function BannerCarrousel() {
         const nextButton = carouselRef.current.querySelector(
           ".carousel-next"
         ) as HTMLButtonElement;
-        nextButton?.click();
+        const previousButton = carouselRef.current.querySelector(
+          ".carousel-previous"
+        ) as HTMLButtonElement;
+
+        if (currentIndexRef.current >= images.length - 1) {
+          previousButton?.click();
+          currentIndexRef.current = 0;
+        } else {
+          nextButton?.click();
+          currentIndexRef.current += 1;
+        }
       }
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
     <main className="w-full flex justify-center">
