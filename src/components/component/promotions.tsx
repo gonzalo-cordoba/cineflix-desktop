@@ -4,6 +4,7 @@ import Image from "next/image";
 import imagePopCorn from "../../../public/popcorn.png";
 import imagePopCorn2 from "../../../public/popcornvip.png";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Promotions() {
   return (
@@ -16,7 +17,8 @@ export default function Promotions() {
             vivir al máximo tu experiencia en nuestras salas.
           </p>
         </div>
-        <div
+        <Link
+          href="/dashboard/traditional-menu"
           className="flex-none md:ml-6 relative"
           style={{ position: "relative", cursor: "pointer" }}
         >
@@ -70,11 +72,12 @@ export default function Promotions() {
               }}
             />
           </div>
-        </div>
+        </Link>
       </div>
 
       <div className="container flex flex-col md:flex-row items-center mt-12 md:mt-24 px-4">
-        <div
+        <Link
+          href="/dashboard/vip-menu"
           className="flex-none md:mr-6 order-2 md:order-1 relative mt-5 mb-20"
           style={{ position: "relative", cursor: "pointer" }}
         >
@@ -128,7 +131,7 @@ export default function Promotions() {
               }}
             />
           </div>
-        </div>
+        </Link>
         <div className="flex-1 flex flex-col justify-center order-1 md:order-2 text-center md:text-left mt-8 md:mt-0">
           <h1 className="font-bold text-3xl md:text-5xl">Menú VIP</h1>
           <p className="font-medium mt-5 text-gray-500">
