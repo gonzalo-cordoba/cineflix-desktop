@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -5,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
 
 import lala from "../../../public/lala.webp";
 import mix from "../../../public/cheetosMixPromoSubmenu.webp";

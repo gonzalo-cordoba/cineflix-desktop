@@ -28,13 +28,10 @@ export const TicketSelected = ({ onUpdateTickets }: any) => {
   return (
     <div className="flex items-center bg-gray-100 p-4">
       <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-red-600 rounded-lg shadow-lg overflow-hidden relative">
-        {/* Ticket shape */}
         <div className="absolute top-0 right-0 w-3 h-3 sm:w-4 sm:h-4 bg-gray-100 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-3 h-3 sm:w-4 sm:h-4 bg-gray-100 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
 
-        {/* Content */}
         <div className="h-full flex flex-col">
-          {/* Top section */}
           <div
             style={{ backgroundColor: "#9667E0", color: "white" }}
             className="py-1 px-2 flex justify-between items-center"
@@ -61,12 +58,10 @@ export const TicketSelected = ({ onUpdateTickets }: any) => {
             </div>
           </div>
 
-          {/* Main content */}
           <div
             style={{ backgroundColor: "#F2EBFB" }}
             className="flex-1 p-2 sm:p-3 flex flex-col sm:flex-row"
           >
-            {/* Left side / Top for mobile */}
             <div className="w-full sm:w-1/3 border-b sm:border-b-0 sm:border-r border-dashed border-red-300 pb-2 sm:pb-0 sm:pr-2 flex flex-row sm:flex-col justify-between items-center sm:items-start">
               <BarcodeIcon
                 style={{ color: "black" }}
@@ -74,7 +69,6 @@ export const TicketSelected = ({ onUpdateTickets }: any) => {
               />
             </div>
 
-            {/* Right side / Bottom for mobile */}
             <div className="w-full sm:w-2/3 pt-2 sm:pt-0 sm:pl-2 flex flex-col justify-center items-center">
               <svg
                 className="w-8 h-8 sm:w-10 sm:h-10 text-red-600 mb-1"

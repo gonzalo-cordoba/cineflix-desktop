@@ -10,19 +10,6 @@ export const HeaderMovie = () => {
   const { ticketCount, movieInfo, subtotal, serviceCharge, total } =
     useTicketContext();
 
-  // const searchParams = useSearchParams();
-  // const title = searchParams.get("title");
-  // const poster = searchParams.get("poster");
-
-  // // Precios por ticket
-  // const ticketPrice = 11000;
-  // const serviceChargePerTicket = 1400;
-
-  // // Calculo subtotal, cargo de servicio y total
-  // const subtotal = ticketCount * ticketPrice;
-  // const serviceCharge = ticketCount * serviceChargePerTicket;
-  // const total = subtotal + serviceCharge;
-
   const formatNumber = (number: any) => number.toLocaleString("es-ES");
 
   return (

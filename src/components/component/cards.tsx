@@ -1,15 +1,16 @@
 "use client";
 
-import { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axiosInstance";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { Movie, MoviesResponse } from "@/lib/types";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useMovieCard } from "@/hooks/useMovieCard";
-import { useEffect, useState } from "react";
+import { Movie, MoviesResponse } from "@/lib/types";
+
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { ColorRing } from "react-loader-spinner";
 import * as motion from "framer-motion/client";
 
@@ -23,7 +24,6 @@ export function Cards({ movies }: HomeProps) {
   const { hoveredImage, isClient, handleMouseEnter, handleMouseLeave } =
     useMovieCard();
 
-  // Estado de carga
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

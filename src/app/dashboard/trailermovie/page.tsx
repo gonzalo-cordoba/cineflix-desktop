@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Movie } from "@/lib/types";
 import axiosInstance from "@/lib/axiosInstance";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMovieCard } from "@/hooks/useMovieCard";
 import * as motion from "framer-motion/client";
 import Link from "next/link";
-import { ColorRing } from "react-loader-spinner";
 
+import { ColorRing } from "react-loader-spinner";
 import { ArrowLeft } from "lucide-react";
-import { Movie } from "@/lib/types";
 
 interface TrailerResponse {
   id: number;
@@ -39,7 +39,6 @@ export default function TrailerMovie() {
 
   const handleViewDetail = (movie: Movie) => {
     if (isClient) {
-      // Concatenar la URL manualmente con los parámetros
       router.push(
         `/dashboard/choicetickets?title=${encodeURIComponent(
           movie.title
@@ -52,7 +51,6 @@ export default function TrailerMovie() {
 
   useEffect(() => {
     if (movieId) {
-      // Fetch movie details
       const fetchMovieDetails = async () => {
         try {
           const response = await axiosInstance.get<MovieDetails>(
@@ -64,7 +62,6 @@ export default function TrailerMovie() {
         }
       };
 
-      // Fetch trailer
       const fetchTrailer = async () => {
         try {
           const response = await axiosInstance.get<TrailerResponse>(

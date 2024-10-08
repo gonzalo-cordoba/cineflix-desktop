@@ -3,13 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ArrowLeft } from "lucide-react";
-
 import logocn from "../../../../public/logo.png";
 import logocnblack from "../../../../public/logocnblack.png";
 
-import { PromotionalImages, RegistrationForm } from "@/components/register";
 import * as motion from "framer-motion/client";
+import { ArrowLeft } from "lucide-react";
+import { PromotionalImages, RegistrationForm } from "@/components/register";
 
 export default function Register() {
   return (

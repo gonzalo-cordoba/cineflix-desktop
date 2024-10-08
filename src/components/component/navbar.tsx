@@ -16,9 +16,9 @@ import MobileMenu from "../navbar/MobileMenu";
 import DesktopMenu from "../navbar/DesktopMenu";
 
 import defaultImage from "../../../public/logo.png";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+
 import { LogOutIcon, User2Icon } from "lucide-react";
-import * as motion from "framer-motion/client";
+
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 export function Navbar() {
@@ -123,13 +123,6 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center space-x-4">
-          {/* <button onClick={toggleCommand} className="focus:outline-none">
-            <MagnifyingGlassIcon
-              style={{ color: "white" }}
-              className="h-6 w-6"
-            />
-          </button> */}
-
           {session?.user ? (
             <div className="flex items-center space-x-4">
               <Image

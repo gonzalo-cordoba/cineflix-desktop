@@ -1,20 +1,14 @@
 "use client";
 
-import { SeatsSelected } from "@/components/choiceseats/SeatsSelected";
-import {
-  Button,
-  HeaderMovie,
-  TicketSelected,
-} from "@/components/choicetickets";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 import React, { useState } from "react";
-import { useTicketContext } from "@/context/TicketContext";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { SeatsSelected } from "@/components/choiceseats/SeatsSelected";
+import { Button, HeaderMovie } from "@/components/choicetickets";
 
 import { AlertCircle } from "lucide-react";
-
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
 import * as motion from "framer-motion/client";
 
 export default function ChoiceOfSeats() {
@@ -78,12 +72,12 @@ export default function ChoiceOfSeats() {
                   display: "inline-block",
                   maxWidth: "425px",
                   whiteSpace: "nowrap",
-                  backgroundColor: "red", // Color de fondo de la alerta
-                  color: "white", // Color del texto de la alerta
-                  border: "1px solid #f5c6cb", // Borde de la alerta
-                  padding: "0.25rem 0.5rem", // Espaciado interno
-                  borderRadius: "0.5rem", // Bordes redondeados
-                  // margin: "1rem", // Margen alrededor de la alerta
+                  backgroundColor: "red",
+                  color: "white",
+                  border: "1px solid #f5c6cb",
+                  padding: "0.25rem 0.5rem",
+                  borderRadius: "0.5rem",
+
                   marginTop: "1.5rem",
                   marginBottom: "1.5rem",
                 }}
@@ -95,18 +89,16 @@ export default function ChoiceOfSeats() {
                 </AlertDescription>
               </Alert>
             )}
-            {/* Componente donde se puede elegir los asientos */}
+
             <SeatsSelected onSeatsChange={handleSeatsChange} />
           </section>
         </main>
 
         <main style={{ width: "45%", paddingBottom: "5rem" }}>
           <section>
-            {/* Componente donde se muestra la pelicula con su título, edad recomendada, idioma y formato, sala de cine. Con subtotal, cargo total de servicio de entradas y total. */}
             <HeaderMovie />
           </section>
 
-          {/* Contenedor de los botones */}
           <section
             style={{
               display: "flex",

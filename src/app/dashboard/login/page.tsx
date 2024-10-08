@@ -1,22 +1,22 @@
 "use client";
 
+import { useForm } from "react-hook-form";
 import { useFirebaseLogin } from "@/hooks/useFirebaseLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginSchema } from "@/validation/loginSchema";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 import Image from "next/image";
 import logocnblack from "../../../../public/logocnblack.png";
 import googleIcon from "../../../../public/icono-google.svg";
-import facebookIcon from "../../../../public/icono-facebook.svg";
+
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { ArrowLeft, X } from "lucide-react";
 import { LoginHeader } from "@/components/login";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
 import * as motion from "framer-motion/client";
 
 type LoginFormValues = z.infer<typeof loginSchema>;

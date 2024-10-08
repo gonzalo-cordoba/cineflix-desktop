@@ -11,7 +11,6 @@ import { Button as UIButton } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +28,6 @@ import {
 import logovisa from "../../../public/visa-svgrepo-com.svg";
 import logomastercard from "../../../public/mastercard-svgrepo-com.svg";
 import logopaypal from "../../../public/paypal-svgrepo-com.svg";
-import { useRouter } from "next/router";
 
 // Esquema de validación usando Zod
 const formSchema = z.object({
@@ -103,7 +101,7 @@ export function ProfileForm({ onSubmit }: ProfileFormProps) {
               >
                 <Input placeholder="tuemail@example.com" {...field} />
               </FormControl>
-              {/* Mensaje de error personalizado con estilo */}
+              {/* Mensaje de error */}
               {form.formState.errors.email && (
                 <FormMessage style={{ color: "red", fontSize: "14px" }}>
                   {form.formState.errors.email.message}

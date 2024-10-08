@@ -6,13 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { registerSchema } from "@/validation/registerSchema";
 import { useFirebaseRegister } from "@/hooks/useFirebaseRegister";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Check, X } from "lucide-react";
 import Link from "next/link";
-
 import { signIn } from "next-auth/react";
 import { AuthButtons } from "./AuthButtons";
+
+import { Input } from "@/components/ui/input";
 import { Alerts } from "./Alerts";
 
 type FormValues = z.infer<typeof registerSchema>;
@@ -43,11 +41,11 @@ export const RegistrationForm: React.FC = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    await signIn("google", { callbackUrl: "/user" });
+    await signIn("google", { callbackUrl: "/" });
   };
 
   const handleFacebookSignIn = async () => {
-    await signIn("facebook", { callbackUrl: "/user" });
+    await signIn("facebook", { callbackUrl: "/" });
   };
 
   return (

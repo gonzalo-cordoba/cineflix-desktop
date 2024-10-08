@@ -52,15 +52,15 @@ export const SeatsSelected = ({
   const getSeatStyle = (status: Seat["status"]) => {
     switch (status) {
       case "available":
-        return { backgroundColor: "#9f7aea", color: "white" }; // purple
+        return { backgroundColor: "#9f7aea", color: "white" };
       case "unavailable":
         return {
           backgroundColor: "#a0aec0",
           color: "white",
           cursor: "not-allowed",
-        }; // gray
+        };
       case "selected":
-        return { backgroundColor: "#ecc94b", color: "black" }; // yellow
+        return { backgroundColor: "#ecc94b", color: "black" };
     }
   };
 
@@ -132,7 +132,6 @@ export const SeatsSelected = ({
                   ))}
               </div>
               <div style={{ width: "1.5rem" }}></div>{" "}
-              {/* Space for central aisle */}
               <div style={{ display: "flex" }}>
                 {seats
                   .filter((seat) => seat.row === row)

@@ -1,19 +1,19 @@
 "use client";
 
+import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useTicketContext } from "@/context/TicketContext";
+
 import {
   Button,
   HeaderMovie,
   TicketSelected,
 } from "@/components/choicetickets";
-import { useTicketContext } from "@/context/TicketContext";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import * as motion from "framer-motion/client";
 
 export default function ChoiceOfTickets() {
-  // const [ticketCount, setTicketCount] = useState(1);
   const { ticketCount, updateTicketCount, updateMovieInfo } =
     useTicketContext();
   const { data: session } = useSession();
@@ -27,10 +27,6 @@ export default function ChoiceOfTickets() {
       updateMovieInfo({ title, poster });
     }
   }, [title, poster, updateMovieInfo]);
-
-  // const handleUpdateTickets = (count: any) => {
-  //   setTicketCount(count);
-  // };
 
   return (
     <>
@@ -58,18 +54,16 @@ export default function ChoiceOfTickets() {
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-5">
               General
             </h2>
-            {/* Componente donde se puede elegir los tickets */}
+
             <TicketSelected onUpdateTickets={updateTicketCount} />
           </section>
         </main>
 
         <main style={{ width: "45%", paddingBottom: "5rem" }}>
           <section>
-            {/* Componente donde se muestra la pelicula con su título, edad recomendada, idioma y formato, sala de cine. Con subtotal, cargo total de servicio de entradas y total. */}
             <HeaderMovie />
           </section>
 
-          {/* Contenedor de los botones */}
           <section
             style={{
               display: "flex",
