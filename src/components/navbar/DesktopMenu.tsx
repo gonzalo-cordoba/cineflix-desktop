@@ -6,11 +6,21 @@ interface DesktopMenuProps {
 }
 
 export default function DesktopMenu({ handleMenuClick }: DesktopMenuProps) {
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="hidden md:flex md:items-center md:gap-6">
       <Link
         href="#"
-        onClick={() => handleMenuClick("Peliculas")}
+        onClick={() => {
+          // handleMenuClick("Peliculas");
+          handleScrollToSection("peliculas"); // Hace scroll hacia la sección de películas
+        }}
         className="text-md font-extrabold hover:bg-[#7b4dc4] hover:text-white px-4 py-2 rounded-md transition-colors text-white"
         prefetch={false}
         style={{ color: "#F2EBFB" }}

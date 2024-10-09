@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDropdown } from "@/hooks/useDropdown";
 import { useFirebaseLogin } from "@/hooks/useFirebaseLogin";
 import { useSession, signOut } from "next-auth/react";
