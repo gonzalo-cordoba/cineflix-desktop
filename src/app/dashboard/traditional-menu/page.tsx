@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@radix-ui/react-select";
 import * as motion from "framer-motion/client";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function TraditionalMenu() {
   const menuItems = [
@@ -78,7 +79,7 @@ export default function TraditionalMenu() {
                   className="w-32 h-32 rounded-full overflow-hidden mb-4"
                   whileHover={{ scale: 1.1 }}
                 >
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover"

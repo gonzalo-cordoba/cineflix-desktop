@@ -4,7 +4,7 @@ const nextConfig = {
     domains: ["image.tmdb.org", "lh3.googleusercontent.com"],
   },
   experimental: {
-    appDir: true,
+    // appDir: true,
   },
 };
 

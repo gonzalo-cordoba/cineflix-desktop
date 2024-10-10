@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React from "react";
 
-import { useSearchParams } from "next/navigation";
 import { useTicketContext } from "@/context/TicketContext";
 
 export const HeaderMovie = () => {

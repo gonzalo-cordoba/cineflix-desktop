@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Movie } from "@/lib/types";
 import axiosInstance from "@/lib/axiosInstance";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -220,73 +220,75 @@ export default function TrailerMovie() {
   }
 
   return (
-    <div style={containerStyle}>
-      <div style={backgroundStyle} />
-      <div style={overlayStyle} />
-      <div style={contentStyle}>
-        <Link
-          href="/"
-          style={{
-            color: "white",
-            fontSize: "1.125rem",
-            transition: "background-color 0.3s",
-          }}
-        >
-          <ArrowLeft />
-        </Link>
-        <motion.div
-          style={contentStyle}
-          initial="hidden"
-          animate="visible"
-          variants={animation}
-        >
-          <div style={videoContainerStyle}>
-            {trailerKey ? (
-              <iframe
-                style={{ width: "100%", height: "100%" }}
-                src={`https://www.youtube.com/embed/${trailerKey}`}
-                title="Movie Trailer"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            ) : (
-              <p>No trailer available</p>
-            )}
-          </div>
-          <div style={textContainerStyle}>
-            <h1 style={titleStyle}>{movieDetails.title}</h1>
-            <p style={descriptionStyle}>{movieDetails.overview}</p>
-            <div style={detailsStyle}>
-              <span style={genreStyle}>
-                Géneros: {movieDetails.genres.map((g) => g.name).join(", ")}
-              </span>
-              <span style={durationStyle}>
-                Duración: {movieDetails.runtime} minutos
-              </span>
-              <div style={ratingStyle}>
-                <span style={starStyle}>★</span>
-                <span>{movieDetails.vote_average}/10</span>
-              </div>
+    <Suspense fallback={<div>Cargando información de la película...</div>}>
+      <div style={containerStyle}>
+        <div style={backgroundStyle} />
+        <div style={overlayStyle} />
+        <div style={contentStyle}>
+          <Link
+            href="/"
+            style={{
+              color: "white",
+              fontSize: "1.125rem",
+              transition: "background-color 0.3s",
+            }}
+          >
+            <ArrowLeft />
+          </Link>
+          <motion.div
+            style={contentStyle}
+            initial="hidden"
+            animate="visible"
+            variants={animation}
+          >
+            <div style={videoContainerStyle}>
+              {trailerKey ? (
+                <iframe
+                  style={{ width: "100%", height: "100%" }}
+                  src={`https://www.youtube.com/embed/${trailerKey}`}
+                  title="Movie Trailer"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <p>No trailer available</p>
+              )}
             </div>
-            <button
-              style={buttonStyle}
-              onClick={() => {
-                if (movieDetails?.id && movieDetails.poster_path) {
-                  handleViewDetail({
-                    id: movieDetails.id,
-                    title: movieDetails.title,
-                    poster_path: movieDetails.poster_path,
-                  });
-                } else {
-                  console.error("Movie ID or Poster Path is undefined");
-                }
-              }}
-            >
-              Comprar Boletos
-            </button>
-          </div>
-        </motion.div>
+            <div style={textContainerStyle}>
+              <h1 style={titleStyle}>{movieDetails.title}</h1>
+              <p style={descriptionStyle}>{movieDetails.overview}</p>
+              <div style={detailsStyle}>
+                <span style={genreStyle}>
+                  Géneros: {movieDetails.genres.map((g) => g.name).join(", ")}
+                </span>
+                <span style={durationStyle}>
+                  Duración: {movieDetails.runtime} minutos
+                </span>
+                <div style={ratingStyle}>
+                  <span style={starStyle}>★</span>
+                  <span>{movieDetails.vote_average}/10</span>
+                </div>
+              </div>
+              <button
+                style={buttonStyle}
+                onClick={() => {
+                  if (movieDetails?.id && movieDetails.poster_path) {
+                    handleViewDetail({
+                      id: movieDetails.id,
+                      title: movieDetails.title,
+                      poster_path: movieDetails.poster_path,
+                    });
+                  } else {
+                    console.error("Movie ID or Poster Path is undefined");
+                  }
+                }}
+              >
+                Comprar Boletos
+              </button>
+            </div>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }

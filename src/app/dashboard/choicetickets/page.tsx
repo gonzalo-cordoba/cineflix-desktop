@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -29,7 +29,7 @@ export default function ChoiceOfTickets() {
   }, [title, poster, updateMovieInfo]);
 
   return (
-    <>
+    <Suspense fallback={<div>Cargando información de la película...</div>}>
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -82,6 +82,6 @@ export default function ChoiceOfTickets() {
           </section>
         </main>
       </motion.div>
-    </>
+    </Suspense>
   );
 }

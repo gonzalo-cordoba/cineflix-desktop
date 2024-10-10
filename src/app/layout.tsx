@@ -7,6 +7,7 @@ import Footer from "@/components/component/footer";
 import { Providers } from "./Providers";
 import { TicketProvider } from "@/context/TicketContext";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
